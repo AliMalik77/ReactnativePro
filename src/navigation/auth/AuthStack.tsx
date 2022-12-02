@@ -6,7 +6,8 @@ import Splash from '../../screens/splash/Splash';
 // import Login from '../../screens/auth/login/Login';
 // import PasswordReset from '../../screens/auth/login/PasswordReset';
 // import SignupType from '../../screens/auth/signup/SignupType';
-import SignupForm from '../../screens/auth/signup/SignupForm';
+
+import LoginForm from '../../screens/auth/login/LoginForm';
 // import SignupPassword from '../../screens/auth/signup/SignupPassword';
 // import InvestorInfo from '../../screens/investorInfo/InvestorInfo';
 
@@ -55,12 +56,14 @@ const AuthStack = ({
         )}
       </Stack.Screen> */}
       {/* <Stack.Screen name="SignupType" component={SignupType}></Stack.Screen> */}
-      <Stack.Screen name="SignupForm">
+      <Stack.Screen name="LoginForm">
         {props => (
-          <SignupForm
+          <LoginForm
             {...props}
             userData={userData}
             setUserData={setUserData}
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
           />
         )}
       </Stack.Screen>
