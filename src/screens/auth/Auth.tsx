@@ -10,16 +10,16 @@ import Footer from '../../components/auth/auth/Footer';
 const Auth = ({
   navigation,
 }: {
-  navigation: NavigationProp<{LoginType: undefined; SignupForm: undefined}>;
+  navigation: NavigationProp<{LoginForm: undefined; SignupForm: undefined}>;
 }) => {
   console.log('hi testing');
   const handleClick = (data: any) => {
     if (data === 'login') {
-      // navigation.navigate('LoginType');
+      navigation.navigate('LoginForm');
     }
-    if (data === 'signup') {
-      navigation.navigate('SignupForm');
-    }
+    // if (data === 'signup') {
+    // navigation.navigate('SignupForm');
+    // }
   };
 
   return (

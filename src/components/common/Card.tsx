@@ -7,11 +7,14 @@ type CardProps = {
     image: string;
     title: string;
     description: string;
+    price: number;
   };
 };
 
 const Card = ({data}: CardProps) => {
-  const {image, title, description} = data;
+  // console.log('data in card props ', data);
+
+  const {image, title, description, price} = data;
   return (
     <View style={styles.container1}>
       <View style={styles.container}>
@@ -22,10 +25,14 @@ const Card = ({data}: CardProps) => {
               uri: image,
             }}></Image>
         </View>
-        <View style={{marginLeft: 20}}>
+        <View style={{marginLeft: 20, width: '70%'}}>
           <Text style={styles.title}>{title}</Text>
-          <Text style={{fontSize: 16, color: 'black'}}>{description}</Text>
-          <Text style={styles.price}>$12000</Text>
+          <View>
+            <Text style={{fontSize: 16, color: 'black'}} numberOfLines={4}>
+              {description}
+            </Text>
+          </View>
+          <Text style={styles.price}>${price}</Text>
         </View>
       </View>
     </View>

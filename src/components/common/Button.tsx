@@ -18,6 +18,8 @@ const Button = ({
   border,
   onPress = () => {},
 }: ButtonProps) => {
+  console.log('on Press is called', onPress);
+
   return (
     <TouchableOpacity
       style={[

@@ -1,65 +1,53 @@
+import {NavigationProp} from '@react-navigation/native';
+import axios from 'axios';
 import React from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {
+  Alert,
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Card from '../../components/common/Card';
+import useFetchProduct from '../../hooks/useFetchProduct';
+import useFetchProducts from '../../hooks/useFetchProducts';
 
-const data = [
-  {
-    id: '1',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    title: 'Babar Azam',
-    description: 'Cover Driv Documentation',
-  },
-  {
-    id: '2',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    title: 'Virat Kohli',
-    description: 'Over the midwicket fence',
-  },
-  {
-    id: '3',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    title: 'Abdevilliers',
-    description: 'Mr 360 Documentation',
-  },
-  {
-    id: '4',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    title: 'Shahid Khan Afridi',
-    description: 'Best Alrounder pakistan ever produced',
-  },
-  {
-    id: '5',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    title: 'Abdevilliers',
-    description: 'Mr 360 Documentation',
-  },
-  {
-    id: '6',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    title: 'Shahid Khan Afridi',
-    description: 'Best Alrounder pakistan ever produced',
-  },
-];
+const Product = ({
+  navigation,
+}: {
+  navigation: NavigationProp<{ProductView: undefined; Auth: undefined}>;
+}) => {
+  const onSuccess = (data: any) => {
+    // console.log('perform side effect after data fetching', data.data);
+  };
 
-const Product = () => {
+  const onError = (data: any) => {
+    // console.log('perform side effect after encountering error', data);
+  };
+
+  const {isLoading, data, isError, error, isFetching, refetch} =
+    useFetchProducts({onSuccess, onError});
+
+  const handleProduct = (item: any) => {
+    console.log('item is: ', item);
+
+    navigation.navigate('ProductView', item);
+  };
+
   return (
-    <View>
-      <Text
-        style={{
-          color: 'black',
-          marginTop: 50,
-          fontSize: 20,
-          fontWeight: '500',
-          padding: 10,
-        }}>
-        {data.length} Products
-      </Text>
+    <View style={styles.mb80}>
+      <Text style={styles.productText}>{data?.data?.length} Products</Text>
 
       <FlatList
-        data={data}
+        data={data?.data}
         keyExtractor={item => item.id}
         renderItem={({item}) => {
-          return <Card data={item} />;
+          return (
+            <TouchableOpacity onPress={() => handleProduct(item)}>
+              <Card data={item} />
+            </TouchableOpacity>
+          );
         }}
         showsVerticalScrollIndicator={false}
       />
@@ -99,5 +87,15 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  mb80: {
+    marginBottom: 80,
+  },
+  productText: {
+    color: 'black',
+    marginTop: 10,
+    fontSize: 20,
+    fontWeight: '500',
+    padding: 10,
   },
 });

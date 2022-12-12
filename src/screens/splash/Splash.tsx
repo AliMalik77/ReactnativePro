@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text} from 'react-native';
 import SplashLogo from '../../../assets/svgs/Splash.svg';
-// import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {ScaledSheet} from 'react-native-size-matters';
 import {NavigationProp} from '@react-navigation/native';
 
