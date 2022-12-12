@@ -2,14 +2,10 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import Auth from '../../screens/auth/Auth';
 import Splash from '../../screens/splash/Splash';
-// import LoginType from '../../screens/auth/login/LoginType';
-// import Login from '../../screens/auth/login/Login';
-// import PasswordReset from '../../screens/auth/login/PasswordReset';
-// import SignupType from '../../screens/auth/signup/SignupType';
-
 import LoginForm from '../../screens/auth/login/LoginForm';
-// import SignupPassword from '../../screens/auth/signup/SignupPassword';
-// import InvestorInfo from '../../screens/investorInfo/InvestorInfo';
+import DrawerNavigation from '../app/DrawNavigation';
+import TabNavigation from '../app/TabNavigation';
+import ProductPage from '../../screens/product/ProductPage';
 
 const Stack = createStackNavigator();
 
@@ -37,6 +33,18 @@ const AuthStack = ({
       }}>
       <Stack.Screen name="Auth" component={Auth}></Stack.Screen>
       <Stack.Screen name="Splash" component={Splash}></Stack.Screen>
+      <Stack.Screen
+        name="Root"
+        component={DrawerNavigation}
+        options={{headerShown: false}}
+      />
+      {/* <Stack.Screen name="Tab" component={TabNavigation}></Stack.Screen> */}
+      <Stack.Screen name="ProductView" component={ProductPage}></Stack.Screen>
+      {/* <Stack.Screen
+        name="Root"
+        component={DrawerNavigation}
+        options={{headerShown: false}}
+      /> */}
       {/* <Stack.Screen name="LoginType">
         {props => (
           <LoginType

@@ -17,9 +17,9 @@ const Auth = ({
     if (data === 'login') {
       navigation.navigate('LoginForm');
     }
-    if (data === 'signup') {
-      // navigation.navigate('SignupForm');
-    }
+    // if (data === 'signup') {
+    // navigation.navigate('SignupForm');
+    // }
   };
 
   return (

@@ -81,6 +81,7 @@ const LoginForm = ({
       console.log('verification is ', confirm);
       await confirm.confirm(code);
       setAuthenticated(true);
+      navigation.navigate('Root');
     } catch (error) {
       console.log('Invalid code.', error);
     }

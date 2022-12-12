@@ -8,7 +8,7 @@ type RootNavigationProps = {
     password: string;
   };
   setUserData: (val: {email: string; password: string}) => void;
-  authenticated: Boolean;
+  authenticated: boolean;
   setAuthenticated: (val: any) => void;
 };
 
@@ -20,16 +20,16 @@ const RootNavigation = ({
 }: RootNavigationProps) => {
   return (
     <>
-      {!authenticated ? (
-        <AuthStack
-          userData={userData}
-          setUserData={setUserData}
-          authenticated={authenticated}
-          setAuthenticated={setAuthenticated}
-        />
-      ) : (
-        <TabNavigation />
-      )}
+      {/* {!authenticated ? ( */}
+      <AuthStack
+        userData={userData}
+        setUserData={setUserData}
+        authenticated={authenticated}
+        setAuthenticated={setAuthenticated}
+      />
+      {/* ) : ( */}
+      {/* <TabNavigation /> */}
+      {/* )} */}
     </>
   );
 };
