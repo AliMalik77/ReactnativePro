@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import Button from '../../components/common/Button';
 import {NavigationProp} from '@react-navigation/native';
 import Header from '../../components/auth/auth/Header';
 import Footer from '../../components/auth/auth/Footer';
-
+import SplashScreen from 'react-native-splash-screen';
 //props
 
 const Auth = ({
@@ -12,6 +12,10 @@ const Auth = ({
 }: {
   navigation: NavigationProp<{LoginForm: undefined; SignupForm: undefined}>;
 }) => {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+
   console.log('hi testing');
   const handleClick = (data: any) => {
     if (data === 'login') {

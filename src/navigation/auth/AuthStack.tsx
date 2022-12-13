@@ -27,7 +27,7 @@ const AuthStack = ({
 }: AuthProps) => {
   return (
     <Stack.Navigator
-      initialRouteName="Splash"
+      initialRouteName="Auth"
       screenOptions={{
         headerShown: false,
       }}>
