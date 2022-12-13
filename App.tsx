@@ -1,5 +1,5 @@
 import {NavigationContainer} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, StyleSheet, Text} from 'react-native';
 import BottomNavigation from './src/navigation/app/TabNavigation';
 import Splash from './src/screens/splash/Splash';
@@ -8,7 +8,7 @@ import AuthStack from './src/navigation/auth/AuthStack';
 import {QueryClient, QueryClientProvider, useQuery} from 'react-query';
 import DrawerNavigation from './src/navigation/app/DrawNavigation';
 import RootNavigation from './src/navigation/RootNavigation';
-
+import SplashScreen from 'react-native-splash-screen';
 const queryClient = new QueryClient();
 const App = () => {
   const [userData, setUserData] = useState({
@@ -16,6 +16,10 @@ const App = () => {
     password: '',
   });
   const [authenticated, setAuthenticated] = useState<boolean>(false);
+
+  // useEffect(() => {
+  //   SplashScreen.hide();
+  // }, [authenticated]);
   return (
     // <SafeAreaView>
     <QueryClientProvider client={queryClient}>
