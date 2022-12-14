@@ -7,6 +7,8 @@ import {
   TextInput,
   Pressable,
   Alert,
+  Button as Buttonn,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 import Back from '../../../../assets/svgs/Backicon.svg';
@@ -22,6 +24,7 @@ import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import LinearGradient from 'react-native-linear-gradient';
 import useAddUser from '../../../hooks/useAddUser';
 import Verification from '../../../components/auth/auth/login/Verification';
+import AddUser from '../../../components/auth/auth/login/AddUser';
 
 const schema = yup
   .object({
@@ -33,7 +36,7 @@ const schema = yup
     confirmPassword: yup.string().required(),
     state: yup.string().required(),
     zipCode: yup.number().required(),
-    phoneNumber: yup.number().required(),
+    // phoneNumber: yup.number().required(),
   })
   .required();
 
@@ -43,6 +46,7 @@ type LoginFormProps = {
   navigation: NavigationProp<{
     SignupType: undefined;
     SignupPassword: undefined;
+    Root: undefined;
   }>;
   authenticated: boolean;
   setAuthenticated: (val: boolean) => void;
@@ -62,6 +66,7 @@ const LoginForm = ({
   const {
     control,
     handleSubmit,
+    getValues,
     formState: {errors},
   } = useForm({
     resolver: yupResolver(schema),
@@ -71,10 +76,80 @@ const LoginForm = ({
   const [confirm, setConfirm] = useState<any | null>(null);
   const [isSignedIn, setSignedIn] = useState('');
   const [code, setCode] = useState('');
+  const [user, setUser] = useState({});
+  const hero = {
+    email: 'ali@gmail.com',
+    username: 'ali',
+    password: '123456',
+    name: {
+      firstname: 'ali',
+      lastname: 'malik',
+    },
+    address: {
+      city: 'kilcoole',
+      street: '7835 new road',
+      number: 3,
+      zipcode: '12926-3874',
+      geolocation: {
+        lat: '-37.3159',
+        long: '81.1496',
+      },
+    },
+    phone: '03201484476',
+  };
+  // const onSubmit = (data: any) => {
+  //   Alert.alert('data submitted Successfully', data);
+  // };
+  // const onSubmit = (data: any) => console.log('dataaaaaaaaaaaa', data);
 
   const onSubmit = (data: any) => {
-    Alert.alert('data submitted Successfully', data);
+    console.log('i m calling', data);
+    signInWithPhoneNumber('+923201484476');
+    // setUser(data);
+    // AddUser(data);
+    //Adding new user using reactquery mutation
+    // const {mutate: addNewUser, isLoading, isError, error} = useAddUser();
+    // const handlenewUser = () => {
+    // console.log('i m clicked');
+
+    // const hero = {
+    //   email: 'ali@gmail.com',
+    //   username: 'ali',
+    //   password: '123456',
+    //   name: {
+    //     firstname: 'ali',
+    //     lastname: 'malik',
+    //   },
+    //   address: {
+    //     city: 'kilcoole',
+    //     street: '7835 new road',
+    //     number: 3,
+    //     zipcode: '12926-3874',
+    //     geolocation: {
+    //       lat: '-37.3159',
+    //       long: '81.1496',
+    //     },
+    //   },
+    //   phone: '03201484476',
+    // };
+    // addNewUser(hero);
+    // // };
+    // if (data) {
+    //   console.log('data', data.data);
+    // }
+
+    // if (isLoading || isFetching) {
+    //   console.log('Loading data');
+    // }
   };
+
+  const onInvalid = (errors: any) => console.error(errors);
+  // useEffect(() => {
+  //   console.log('getting data...', getValues());
+  //   if (getValues('emailAddress')) {
+  //     console.log('data exists');
+  //   }
+  // }, [handleSubmit]);
 
   const confirmCode = async () => {
     try {
@@ -107,40 +182,6 @@ const LoginForm = ({
   //   navigation.navigate('SignupPassword');
   // };
 
-  //Adding new user using reactquery mutation
-  // const {mutate: addNewUser} = useAddUser();
-  // const handlenewUser = () => {
-  //   console.log('i m clicked');
-
-  //   const hero = {
-  //     email: 'ali@gmail.com',
-  //     username: 'ali',
-  //     password: '123456',
-  //     name: {
-  //       firstname: 'ali',
-  //       lastname: 'malik',
-  //     },
-  //     address: {
-  //       city: 'kilcoole',
-  //       street: '7835 new road',
-  //       number: 3,
-  //       zipcode: '12926-3874',
-  //       geolocation: {
-  //         lat: '-37.3159',
-  //         long: '81.1496',
-  //       },
-  //     },
-  //     phone: '03201484476',
-  //   };
-  //   addNewUser(hero);
-  // };
-  // if (data) {
-  //   console.log('data', data.data);
-  // }
-
-  // if (isLoading || isFetching) {
-  //   console.log('Loading data');
-  // }
   if (!confirm) {
     return (
       <View style={styles.container}>
@@ -153,9 +194,12 @@ const LoginForm = ({
           <View style={styles.descHeader}>
             <Text style={styles.description}>Add User Information</Text>
           </View>
+
           <View style={{padding: 10}}>
-            <KeyboardAwareScrollView>
-              <View>
+            <View>
+              <KeyboardAwareScrollView
+                scrollEnabled={true}
+                enableOnAndroid={true}>
                 <View style={styles.nameFields}>
                   <View style={styles.w50}>
                     <Controller
@@ -164,7 +208,7 @@ const LoginForm = ({
                         required: true,
                         maxLength: 10,
                       }}
-                      render={({field: {onChange, onBlur, value}}) => (
+                      render={({field: {onChange, onBlur, value, ref}}) => (
                         <>
                           <Text>First Name </Text>
                           <TextInput
@@ -364,16 +408,18 @@ const LoginForm = ({
                     )}
                   </View>
                 </View>
-              </View>
-              {/* </View> */}
-            </KeyboardAwareScrollView>
+              </KeyboardAwareScrollView>
+              {/* <Buttonn title="Submit" onPress={() => onSubmit()} /> */}
+            </View>
+            {/* </View> */}
           </View>
 
           <View style={styles.btnWrapper}>
             <TouchableOpacity
               style={styles.button}
               // signInWithPhoneNumber('+9232014844476'),
-              onPress={() => signInWithPhoneNumber('+923054042027')}
+              // onPress={() => signInWithPhoneNumber('+923054042027')}
+              onPress={handleSubmit(onSubmit, onInvalid)}
               // onPress={() => {
               //   handlenewUser;
               // }}
@@ -393,7 +439,12 @@ const LoginForm = ({
         // alignItems: 'center',
         justifyContent: 'center',
       }}>
-      <Verification onPress={confirmCode} setCode={setCode} code={code} />
+      <Verification
+        onPress={confirmCode}
+        setCode={setCode}
+        code={code}
+        data={hero}
+      />
     </View>
     // <View style={styles.containerVerification}>
     //   <TextInput
