@@ -1,14 +1,6 @@
 import {NavigationProp} from '@react-navigation/native';
-import axios from 'axios';
 import React from 'react';
-import {
-  Alert,
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Card from '../../components/common/Card';
 import useFetchProduct from '../../hooks/useFetchProduct';
 import useFetchProducts from '../../hooks/useFetchProducts';

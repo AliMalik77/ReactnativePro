@@ -3,39 +3,11 @@ import {StyleSheet, Text, TextInput, View} from 'react-native';
 import useAddUser from '../../../../hooks/useAddUser';
 import Button from '../../../common/Button';
 
-import axios from 'axios';
-import {useMutation} from 'react-query';
-
 type VerificationProps = {
   onPress: (val: any) => void;
   setCode: (val: any) => void;
   code: string;
   data: {};
-};
-
-const user = {
-  email: 'ali@gmail.com',
-  username: 'ali',
-  password: '123456',
-  name: {
-    firstname: 'ali',
-    lastname: 'malik',
-  },
-  address: {
-    city: 'kilcoole',
-    street: '7835 new road',
-    number: 3,
-    zipcode: '12926-3874',
-    geolocation: {
-      lat: '-37.3159',
-      long: '81.1496',
-    },
-  },
-  phone: '03201484476',
-};
-const postData = async (user: any) => {
-  const response = await axios.post('https://fakestoreapi.com/users', user);
-  return response;
 };
 
 const Verification = ({onPress, setCode, code, data}: VerificationProps) => {

@@ -1,20 +1,21 @@
 import React from 'react';
-import {Button, StyleSheet, View} from 'react-native';
+import {Button, StyleSheet, Text, View} from 'react-native';
 import {NavigationProp} from '@react-navigation/native';
 
 const Settings = ({
   navigation,
 }: {
   navigation: NavigationProp<{
-    Notifications: undefined;
+    Home: undefined;
   }>;
 }) => {
   return (
     <View style={styles.container}>
-      <Button
-        onPress={() => navigation.navigate('Notifications')}
-        title="Go to notifications"
-      />
+      <View style={{marginTop: 10}}>
+        <Text style={{color: 'black', fontSize: 24, fontWeight: '600'}}>
+          Edit User Info
+        </Text>
+      </View>
     </View>
   );
 };
@@ -22,5 +23,5 @@ const Settings = ({
 export default Settings;
 
 const styles = StyleSheet.create({
-  container: {flex: 1, alignItems: 'center', justifyContent: 'center'},
+  container: {flex: 1, alignItems: 'center'},
 });

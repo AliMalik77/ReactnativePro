@@ -3,9 +3,10 @@ import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import StarRating from 'react-native-star-rating';
 import Back from '../../../assets/svgs/Backicon.svg';
+import FastImage from 'react-native-fast-image';
 type ProductPageProps = {
   route: any;
-  key: any;
+  // key: any;
   navigation: NavigationProp<{
     goBack: undefined;
   }>;
@@ -27,7 +28,7 @@ const ProductPage = ({route, navigation}: ProductPageProps) => {
         <Back />
       </TouchableOpacity>
 
-      <Image
+      <FastImage
         style={{
           width: '90%',
           height: '60%',
@@ -37,8 +38,9 @@ const ProductPage = ({route, navigation}: ProductPageProps) => {
         }}
         source={{
           uri: image,
+          // priority: FastImage.priority.normal,
         }}
-        resizeMode={'center'}></Image>
+        resizeMode={FastImage.resizeMode.center}></FastImage>
 
       <View style={styles.image}>
         <View style={{width: '100%'}}>

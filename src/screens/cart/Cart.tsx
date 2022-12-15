@@ -1,31 +1,18 @@
-import React, {useEffect} from 'react';
+import {NavigationProp} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
+import CartComponent from '../../components/cart/Cart';
 import Card from '../../components/common/Card';
+
 import useFetchCart from '../../hooks/useFetchCart';
 import useFetchProduct from '../../hooks/useFetchProduct';
+import useFetchProductsById from '../../hooks/useFetchProductsById';
 
-// const data = [
-//   {
-//     id: '1',
-//     image: 'https://reactnative.dev/img/tiny_logo.png',
-//     title: 'Babar Azam',
-//     description: 'Cover Driv Documentation',
-//   },
-//   {
-//     id: '2',
-//     image: 'https://reactnative.dev/img/tiny_logo.png',
-//     title: 'Virat Kohli',
-//     description: 'Over the midwicket fence',
-//   },
-//   {
-//     id: '3',
-//     image: 'https://reactnative.dev/img/tiny_logo.png',
-//     title: 'Abdevilliers',
-//     description: 'Mr 360 Documentation',
-//   },
-// ];
-
-const Cart = () => {
+const Cart = ({
+  navigation,
+}: {
+  navigation: NavigationProp<{ProductView: undefined}>;
+}) => {
   const onSuccess = (data: any) => {
     // console.log('perform side effect after data fetching', data.data);
   };
@@ -38,22 +25,17 @@ const Cart = () => {
     onError,
   });
 
-  const results = [];
-  useEffect(() => {
-    data?.data?.products.forEach((product: any) => {
-      console.log('product is ', product);
-      // const {
-      //   isLoading: isLoadingProduct,
-      //   data: productData,
-      //   isError: productIsError,
-      //   error: productError,
-      //   isFetching: productIsFetching,
-      //   refetch: productRefetch,
-      // } = useFetchProduct({onSuccess, onError, id: product?.productId});
-    });
-  }, [data?.data?.products]);
+  console.log('testing logs=======', isLoading, isError, error);
 
-  console.log('data getting in cart is ', data?.data);
+  if (isLoading === false) {
+    console.log('product data loaded', data);
+  }
+
+  const handleProduct = (item: any) => {
+    console.log('item in cart is: ', item);
+
+    navigation.navigate('ProductView', item);
+  };
 
   return (
     <View>
@@ -67,15 +49,22 @@ const Cart = () => {
         }}>
         {data?.data?.products?.length} products in Cart
       </Text>
-
       <FlatList
         data={data?.data?.products}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => {
+          return <CartComponent data={item} handleProduct={handleProduct} />;
+        }}
+        showsVerticalScrollIndicator={false}
+      />
+      {/* <FlatList
+        data={ab}
         keyExtractor={item => item.id}
         renderItem={({item}) => {
           return <Card data={item} />;
         }}
         showsVerticalScrollIndicator={false}
-      />
+      /> */}
     </View>
   );
 };

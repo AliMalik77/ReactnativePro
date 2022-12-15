@@ -45,6 +45,43 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:180123884938:android:34320b3ba0861e11323c73",
+        "android_client_info": {
+          "package_name": "com.ReactnativePro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "180123884938-1t53ua21c0adq95vqv14i04ionelij7k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ReactnativePro",
+            "certificate_hash": "06eaf6790eda496428925cc78cbe718ade823746"
+          }
+        },
+        {
+          "client_id": "180123884938-0iv7p5s8me7e1l6gthmmosd40m4i8o2a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuUv4aisE0QzSSRt6G8K4HUJXmBGVIhOc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "180123884938-0iv7p5s8me7e1l6gthmmosd40m4i8o2a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:180123884938:android:75c2253db64d14d0323c73",
         "android_client_info": {
           "package_name": "com.miventures"
@@ -82,72 +119,6 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:180123884938:android:97f65efaeef3d923323c73",
-        "android_client_info": {
-          "package_name": "com.myproject"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "180123884938-0iv7p5s8me7e1l6gthmmosd40m4i8o2a.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAuUv4aisE0QzSSRt6G8K4HUJXmBGVIhOc"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "180123884938-0iv7p5s8me7e1l6gthmmosd40m4i8o2a.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:180123884938:android:4882361fbb8375cb323c73",
-        "android_client_info": {
-          "package_name": "com.myproject.test"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "180123884938-ko9139siaja03v526nds78ks4c8u5lrs.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.myproject.test",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
-          }
-        },
-        {
-          "client_id": "180123884938-0iv7p5s8me7e1l6gthmmosd40m4i8o2a.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAuUv4aisE0QzSSRt6G8K4HUJXmBGVIhOc"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "180123884938-0iv7p5s8me7e1l6gthmmosd40m4i8o2a.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:180123884938:android:5308c5a33d695d77323c73",
         "android_client_info": {
           "package_name": "com.reactnativepro"
@@ -155,7 +126,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "180123884938-qvlfci47fqt232k7385n42t09eihne13.apps.googleusercontent.com",
+          "client_id": "180123884938-uc8pjkhljv0tsa8i8l6e7c50i8f610qf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.reactnativepro",

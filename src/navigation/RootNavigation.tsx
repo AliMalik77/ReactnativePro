@@ -27,9 +27,9 @@ const RootNavigation = ({
         authenticated={authenticated}
         setAuthenticated={setAuthenticated}
       />
-      {/* ) : ( */}
-      {/* <TabNavigation /> */}
-      {/* )} */}
+      {/* ) : (
+        <TabNavigation />
+      )} */}
     </>
   );
 };
