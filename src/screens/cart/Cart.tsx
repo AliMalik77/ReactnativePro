@@ -1,12 +1,8 @@
 import {NavigationProp} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import CartComponent from '../../components/cart/Cart';
-import Card from '../../components/common/Card';
-
 import useFetchCart from '../../hooks/useFetchCart';
-import useFetchProduct from '../../hooks/useFetchProduct';
-import useFetchProductsById from '../../hooks/useFetchProductsById';
 
 const Cart = ({
   navigation,
@@ -25,15 +21,7 @@ const Cart = ({
     onError,
   });
 
-  console.log('testing logs=======', isLoading, isError, error);
-
-  if (isLoading === false) {
-    console.log('product data loaded', data);
-  }
-
   const handleProduct = (item: any) => {
-    console.log('item in cart is: ', item);
-
     navigation.navigate('ProductView', item);
   };
 
@@ -57,14 +45,6 @@ const Cart = ({
         }}
         showsVerticalScrollIndicator={false}
       />
-      {/* <FlatList
-        data={ab}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => {
-          return <Card data={item} />;
-        }}
-        showsVerticalScrollIndicator={false}
-      /> */}
     </View>
   );
 };

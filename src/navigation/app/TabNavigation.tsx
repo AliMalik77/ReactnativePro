@@ -5,8 +5,7 @@ import Cart from '../../screens/cart/Cart';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {createStackNavigator} from '@react-navigation/stack';
-import ProductPage from '../../screens/product/ProductPage';
-const Stack = createStackNavigator();
+
 const Tab = createBottomTabNavigator();
 
 const TabNavigation = () => {

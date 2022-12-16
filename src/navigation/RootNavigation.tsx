@@ -1,5 +1,4 @@
 import React from 'react';
-import TabNavigation from './app/TabNavigation';
 import AuthStack from './auth/AuthStack';
 
 type RootNavigationProps = {
@@ -9,7 +8,7 @@ type RootNavigationProps = {
   };
   setUserData: (val: {email: string; password: string}) => void;
   authenticated: boolean;
-  setAuthenticated: (val: any) => void;
+  setAuthenticated: (val: boolean) => void;
 };
 
 const RootNavigation = ({

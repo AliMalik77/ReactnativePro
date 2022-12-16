@@ -1,21 +1,18 @@
 import {NavigationProp} from '@react-navigation/native';
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import StarRating from 'react-native-star-rating';
 import Back from '../../../assets/svgs/Backicon.svg';
 import FastImage from 'react-native-fast-image';
 type ProductPageProps = {
   route: any;
-  // key: any;
   navigation: NavigationProp<{
     goBack: undefined;
   }>;
 };
 
 const ProductPage = ({route, navigation}: ProductPageProps) => {
-  console.log('route data is', route.params);
-  const {category, description, id, image, price, rating, title} = route.params;
-  console.log('image', image);
+  const {category, image, price, rating, title} = route.params;
 
   const handleBack = () => {
     navigation.goBack();
@@ -38,7 +35,6 @@ const ProductPage = ({route, navigation}: ProductPageProps) => {
         }}
         source={{
           uri: image,
-          // priority: FastImage.priority.normal,
         }}
         resizeMode={FastImage.resizeMode.center}></FastImage>
 

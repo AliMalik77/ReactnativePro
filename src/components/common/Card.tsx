@@ -3,19 +3,17 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 
 type CardProps = {
   data: {
-    id: any;
-    category: any;
-    image: any;
-    title: any;
-    description: any;
-    price: any;
-    rating: {count: any; rate: any};
+    id: number;
+    category: string;
+    image: string;
+    title: string;
+    description: string;
+    price: number;
+    rating: {count: number; rate: number};
   };
 };
 
 const Card = ({data}: CardProps) => {
-  console.log('data in card props ', data);
-
   const {image, title, description, price} = data;
   return (
     <View style={styles.container1}>

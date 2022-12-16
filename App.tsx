@@ -2,13 +2,12 @@ import {NavigationContainer} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView, StyleSheet, Text} from 'react-native';
 import BottomNavigation from './src/navigation/app/TabNavigation';
-import Splash from './src/screens/splash/Splash';
 import Auth from './src/screens/auth/Auth';
 import AuthStack from './src/navigation/auth/AuthStack';
 import {QueryClient, QueryClientProvider, useQuery} from 'react-query';
 import DrawerNavigation from './src/navigation/app/DrawNavigation';
 import RootNavigation from './src/navigation/RootNavigation';
-import SplashScreen from 'react-native-splash-screen';
+
 const queryClient = new QueryClient();
 const App = () => {
   const [userData, setUserData] = useState({
