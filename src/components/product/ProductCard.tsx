@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-
+import FastImage from 'react-native-fast-image';
 type ProductCardProps = {
   data: {
     id: string;
@@ -16,11 +16,13 @@ const ProductCard = ({data}: ProductCardProps) => {
     <View style={styles.container1}>
       <View style={styles.container}>
         <View style={{marginLeft: 30}}>
-          <Image
+          <FastImage
             style={styles.image}
             source={{
               uri: image,
-            }}></Image>
+              priority: FastImage.priority.normal,
+            }}
+            resizeMode={'center'}></FastImage>
         </View>
         <View style={{marginLeft: 20}}>
           <Text style={styles.title}>{title}</Text>

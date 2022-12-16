@@ -21,10 +21,9 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import useFetchProducts from '../../../hooks/useFetchProducts';
 import useFetchCart from '../../../hooks/useFetchCart';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
-import LinearGradient from 'react-native-linear-gradient';
 import useAddUser from '../../../hooks/useAddUser';
 import Verification from '../../../components/auth/auth/login/Verification';
-import AddUser from '../../../components/auth/auth/login/AddUser';
+import UserForm from '../../../components/common/UserForm';
 
 const schema = yup
   .object({
@@ -105,42 +104,6 @@ const LoginForm = ({
   const onSubmit = (data: any) => {
     console.log('i m calling', data);
     signInWithPhoneNumber('+923201484476');
-    // setUser(data);
-    // AddUser(data);
-    //Adding new user using reactquery mutation
-    // const {mutate: addNewUser, isLoading, isError, error} = useAddUser();
-    // const handlenewUser = () => {
-    // console.log('i m clicked');
-
-    // const hero = {
-    //   email: 'ali@gmail.com',
-    //   username: 'ali',
-    //   password: '123456',
-    //   name: {
-    //     firstname: 'ali',
-    //     lastname: 'malik',
-    //   },
-    //   address: {
-    //     city: 'kilcoole',
-    //     street: '7835 new road',
-    //     number: 3,
-    //     zipcode: '12926-3874',
-    //     geolocation: {
-    //       lat: '-37.3159',
-    //       long: '81.1496',
-    //     },
-    //   },
-    //   phone: '03201484476',
-    // };
-    // addNewUser(hero);
-    // // };
-    // if (data) {
-    //   console.log('data', data.data);
-    // }
-
-    // if (isLoading || isFetching) {
-    //   console.log('Loading data');
-    // }
   };
 
   const onInvalid = (errors: any) => console.error(errors);
@@ -178,10 +141,6 @@ const LoginForm = ({
     console.log('perform side effect after encountering error', data);
   };
 
-  // const handleNext = () => {
-  //   navigation.navigate('SignupPassword');
-  // };
-
   if (!confirm) {
     return (
       <View style={styles.container}>
@@ -196,7 +155,14 @@ const LoginForm = ({
           </View>
 
           <View style={{padding: 10}}>
-            <View>
+            <UserForm
+              schema={schema}
+              handleSubmit={handleSubmit}
+              errors={errors}
+              onSubmit={onSubmit}
+              onInvalid={onInvalid}
+            />
+            {/* <View>
               <KeyboardAwareScrollView
                 scrollEnabled={true}
                 enableOnAndroid={true}>
@@ -409,24 +375,22 @@ const LoginForm = ({
                   </View>
                 </View>
               </KeyboardAwareScrollView>
-              {/* <Buttonn title="Submit" onPress={() => onSubmit()} /> */}
-            </View>
-            {/* </View> */}
+            </View> */}
           </View>
 
-          <View style={styles.btnWrapper}>
-            <TouchableOpacity
-              style={styles.button}
-              // signInWithPhoneNumber('+9232014844476'),
-              // onPress={() => signInWithPhoneNumber('+923054042027')}
-              onPress={handleSubmit(onSubmit, onInvalid)}
-              // onPress={() => {
-              //   handlenewUser;
-              // }}
-            >
-              <Text style={styles.text}>Confirm Investor Info</Text>
-            </TouchableOpacity>
-          </View>
+          {/* <View style={styles.btnWrapper}>
+              <TouchableOpacity
+                style={styles.button}
+                // signInWithPhoneNumber('+9232014844476'),
+                // onPress={() => signInWithPhoneNumber('+923054042027')}
+                onPress={handleSubmit(onSubmit, onInvalid)}
+                // onPress={() => {
+                //   handlenewUser;
+                // }}
+              >
+                <Text style={styles.text}>Confirm Investor Info</Text>
+              </TouchableOpacity>
+            </View> */}
         </View>
       </View>
     );
@@ -436,7 +400,6 @@ const LoginForm = ({
       style={{
         flex: 1,
         backgroundColor: '#fff',
-        // alignItems: 'center',
         justifyContent: 'center',
       }}>
       <Verification
@@ -446,18 +409,7 @@ const LoginForm = ({
         data={hero}
       />
     </View>
-    // <View style={styles.containerVerification}>
-    //   <TextInput
-    //     style={styles.input}
-    //     value={code}
-    //     onChangeText={text => setCode(text)}
-    //   />
-    //   <Button title="Confirm Code" onPress={() => confirmCode()} />
-    // </View>
   );
-  // if (isError) {
-  //   console.log('getting error message');
-  // }
 };
 
 export default LoginForm;

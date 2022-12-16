@@ -7,18 +7,17 @@ const addNewUser = (hero: any) => {
 };
 
 const useAddUser = () => {
-  console.log('testing add user');
-  const queryClient = useQueryClient();
   return useMutation(
-    (post: any) => axios.post(`https://fakestoreapi.com/users`, post),
-    // fetch(`https://fakestoreapi.com/users/new_post`, {
-    //   body: JSON.stringify(post),
-    //   method: 'POST',
-    //   credentials: 'include',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    // }),
+    (post: any) =>
+      //  axios.post(`https://fakestoreapi.com/users`, post),
+      fetch(`https://fakestoreapi.com/users/new_post`, {
+        body: JSON.stringify(post),
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
     {
       // onSuccess: data => {
       //   queryClient.setQueryData()

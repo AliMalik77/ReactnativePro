@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import Headphone from '../../../../assets/svgs/Headphone.svg';
 import Logo from '../../../../assets/svgs/Logo.svg';
 import Cycle from '../../../../assets/svgs/Cycle.svg';

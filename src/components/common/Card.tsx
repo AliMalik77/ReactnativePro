@@ -3,16 +3,18 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 
 type CardProps = {
   data: {
-    id: string;
-    image: string;
-    title: string;
-    description: string;
-    price: number;
+    id: any;
+    category: any;
+    image: any;
+    title: any;
+    description: any;
+    price: any;
+    rating: {count: any; rate: any};
   };
 };
 
 const Card = ({data}: CardProps) => {
-  // console.log('data in card props ', data);
+  console.log('data in card props ', data);
 
   const {image, title, description, price} = data;
   return (

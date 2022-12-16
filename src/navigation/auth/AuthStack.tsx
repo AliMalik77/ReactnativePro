@@ -1,7 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import Auth from '../../screens/auth/Auth';
-import Splash from '../../screens/splash/Splash';
 import LoginForm from '../../screens/auth/login/LoginForm';
 import DrawerNavigation from '../app/DrawNavigation';
 import TabNavigation from '../app/TabNavigation';
@@ -31,14 +30,22 @@ const AuthStack = ({
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="Auth" component={Auth}></Stack.Screen>
-      <Stack.Screen name="Splash" component={Splash}></Stack.Screen>
+      <Stack.Screen name="Auth">
+        {props => (
+          <Auth
+            {...props}
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
+          />
+        )}
+      </Stack.Screen>
+      {/* <Stack.Screen name="Splash" component={Splash}></Stack.Screen> */}
       <Stack.Screen
         name="Root"
         component={DrawerNavigation}
         options={{headerShown: false}}
       />
-      {/* <Stack.Screen name="Tab" component={TabNavigation}></Stack.Screen> */}
+      <Stack.Screen name="Tab" component={TabNavigation}></Stack.Screen>
       <Stack.Screen name="ProductView" component={ProductPage}></Stack.Screen>
       {/* <Stack.Screen
         name="Root"
