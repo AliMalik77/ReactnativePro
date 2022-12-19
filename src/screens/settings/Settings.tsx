@@ -1,27 +1,51 @@
-import React from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 import {NavigationProp} from '@react-navigation/native';
+import UserForm from '../../components/common/UserForm';
 
-const Settings = ({
-  navigation,
-}: {
+import EditUser from '../../components/settings/EditUser';
+
+type SettingsProps = {
   navigation: NavigationProp<{
     Home: undefined;
   }>;
-}) => {
+};
+
+const Settings = ({navigation}: SettingsProps) => {
+  const [editData, setEditData] = useState(null);
+
+  const onSubmit = (data: any) => {
+    setEditData(data);
+  };
+
+  const onInvalid = (errors: any) => {
+    console.error(errors);
+  };
   return (
-    <View style={styles.container}>
-      <View style={{marginTop: 10}}>
-        <Text style={{color: 'black', fontSize: 24, fontWeight: '600'}}>
-          Edit User Info
-        </Text>
-      </View>
-    </View>
+    <>
+      {editData ? (
+        <EditUser data={editData} setEditData={setEditData} />
+      ) : (
+        <View style={styles.container}>
+          <View style={{marginTop: 10, padding: 20}}>
+            <View style={{alignSelf: 'center'}}>
+              <Text style={{color: 'black', fontSize: 24, fontWeight: '600'}}>
+                Edit User Info
+              </Text>
+            </View>
+
+            <View>
+              <UserForm onSubmit={onSubmit} onInvalid={onInvalid} />
+            </View>
+          </View>
+        </View>
+      )}
+    </>
   );
 };
 
 export default Settings;
 
 const styles = StyleSheet.create({
-  container: {flex: 1, alignItems: 'center'},
+  container: {flex: 1, alignItems: 'center', backgroundColor: '#fff'},
 });

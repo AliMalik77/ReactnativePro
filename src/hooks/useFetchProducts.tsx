@@ -11,8 +11,6 @@ const fetchProducts = () => {
 };
 
 const useFetchProducts = ({onSuccess, onError}: FetchProductProps) => {
-  console.log('type', typeof onSuccess);
-
   return useQuery('fetch-products', fetchProducts, {
     onSuccess,
     onError,
@@ -20,18 +18,6 @@ const useFetchProducts = ({onSuccess, onError}: FetchProductProps) => {
       return data;
     },
   });
-  // ['fetch-products', id],
-  // id !== null ? fetchProduct : fetchProducts,
-  // fetchProducts,
-  // () => fetchProducts(id),
-  // {
-  //   onSuccess,
-  //   onError,
-  //   select: data => {
-  //     return data;
-  //   },
-  // enabled: !!Boolean(id),
-  // },
 };
 
 export default useFetchProducts;

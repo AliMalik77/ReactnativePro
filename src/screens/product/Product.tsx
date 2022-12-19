@@ -2,7 +2,6 @@ import {NavigationProp} from '@react-navigation/native';
 import React from 'react';
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Card from '../../components/common/Card';
-import useFetchProduct from '../../hooks/useFetchProduct';
 import useFetchProducts from '../../hooks/useFetchProducts';
 
 const Product = ({
@@ -22,8 +21,6 @@ const Product = ({
     useFetchProducts({onSuccess, onError});
 
   const handleProduct = (item: any) => {
-    console.log('item is: ', item);
-
     navigation.navigate('ProductView', item);
   };
 

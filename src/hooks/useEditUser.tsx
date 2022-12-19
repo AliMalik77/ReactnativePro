@@ -1,10 +1,10 @@
 import {useMutation} from 'react-query';
 
-const useAddUser = () => {
+const useEditUser = () => {
   return useMutation((post: any) =>
-    fetch(`https://fakestoreapi.com/users/new_post`, {
+    fetch(`https://fakestoreapi.com/users/7`, {
       body: JSON.stringify(post),
-      method: 'POST',
+      method: 'PUT',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
@@ -13,4 +13,4 @@ const useAddUser = () => {
   );
 };
 
-export default useAddUser;
+export default useEditUser;

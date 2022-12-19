@@ -1,14 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
-  TextInput,
-  Pressable,
-  Alert,
   Button as Buttonn,
-  KeyboardAvoidingView,
 } from 'react-native';
 
 import Back from '../../../../assets/svgs/Backicon.svg';
@@ -16,12 +12,8 @@ import Button from '../../../components/common/Button';
 import {NavigationProp} from '@react-navigation/native';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import {useForm, Controller} from 'react-hook-form';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import useFetchProducts from '../../../hooks/useFetchProducts';
-import useFetchCart from '../../../hooks/useFetchCart';
-import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
-import useAddUser from '../../../hooks/useAddUser';
+import {useForm} from 'react-hook-form';
+import auth from '@react-native-firebase/auth';
 import Verification from '../../../components/auth/auth/login/Verification';
 import UserForm from '../../../components/common/UserForm';
 
@@ -35,7 +27,6 @@ const schema = yup
     confirmPassword: yup.string().required(),
     state: yup.string().required(),
     zipCode: yup.number().required(),
-    // phoneNumber: yup.number().required(),
   })
   .required();
 
@@ -71,11 +62,10 @@ const LoginForm = ({
     resolver: yupResolver(schema),
   });
 
-  const [phoneNumber, setPhoneNumber] = useState('');
   const [confirm, setConfirm] = useState<any | null>(null);
-  const [isSignedIn, setSignedIn] = useState('');
+
   const [code, setCode] = useState('');
-  const [user, setUser] = useState({});
+
   const hero = {
     email: 'ali@gmail.com',
     username: 'ali',
@@ -96,27 +86,15 @@ const LoginForm = ({
     },
     phone: '03201484476',
   };
-  // const onSubmit = (data: any) => {
-  //   Alert.alert('data submitted Successfully', data);
-  // };
-  // const onSubmit = (data: any) => console.log('dataaaaaaaaaaaa', data);
 
   const onSubmit = (data: any) => {
-    console.log('i m calling', data);
     signInWithPhoneNumber('+923201484476');
   };
 
   const onInvalid = (errors: any) => console.error(errors);
-  // useEffect(() => {
-  //   console.log('getting data...', getValues());
-  //   if (getValues('emailAddress')) {
-  //     console.log('data exists');
-  //   }
-  // }, [handleSubmit]);
 
   const confirmCode = async () => {
     try {
-      console.log('verification is ', confirm);
       await confirm.confirm(code);
       setAuthenticated(true);
       navigation.navigate('Root');
@@ -129,7 +107,6 @@ const LoginForm = ({
     const ConfirmationResult: any = await auth().signInWithPhoneNumber(
       '+923054042027',
     );
-    console.log('confirmation result', ConfirmationResult);
     setConfirm(ConfirmationResult);
   };
 
@@ -155,242 +132,8 @@ const LoginForm = ({
           </View>
 
           <View style={{padding: 10}}>
-            <UserForm
-              schema={schema}
-              handleSubmit={handleSubmit}
-              errors={errors}
-              onSubmit={onSubmit}
-              onInvalid={onInvalid}
-            />
-            {/* <View>
-              <KeyboardAwareScrollView
-                scrollEnabled={true}
-                enableOnAndroid={true}>
-                <View style={styles.nameFields}>
-                  <View style={styles.w50}>
-                    <Controller
-                      control={control}
-                      rules={{
-                        required: true,
-                        maxLength: 10,
-                      }}
-                      render={({field: {onChange, onBlur, value, ref}}) => (
-                        <>
-                          <Text>First Name </Text>
-                          <TextInput
-                            textContentType="name"
-                            onBlur={onBlur}
-                            onChangeText={onChange}
-                            value={value}
-                          />
-                        </>
-                      )}
-                      name="firstName"
-                    />
-                    <View style={styles.divider} />
-                    {errors.firstName && (
-                      <Text style={styles.colorRed}>This is required.</Text>
-                    )}
-                  </View>
-                  <View style={styles.w50}>
-                    <Controller
-                      control={control}
-                      rules={{
-                        required: true,
-                        maxLength: 10,
-                      }}
-                      render={({field: {onChange, onBlur, value}}) => (
-                        <>
-                          <Text>Last Name </Text>
-                          <TextInput
-                            textContentType="name"
-                            onBlur={onBlur}
-                            onChangeText={onChange}
-                            value={value}
-                          />
-                        </>
-                      )}
-                      name="lastName"
-                    />
-                    <View style={styles.divider} />
-                    {errors.lastName && (
-                      <Text style={styles.colorRed}>This is required.</Text>
-                    )}
-                  </View>
-                </View>
-                <View style={{marginTop: 15}}>
-                  <Controller
-                    control={control}
-                    rules={{
-                      required: true,
-                      maxLength: 30,
-                    }}
-                    render={({field: {onChange, onBlur, value}}) => (
-                      <>
-                        <Text>Email Address </Text>
-                        <TextInput
-                          textContentType="emailAddress"
-                          onBlur={onBlur}
-                          onChangeText={onChange}
-                          value={value}
-                        />
-                      </>
-                    )}
-                    name="emailAddress"
-                  />
-                  <View style={styles.divider} />
-                  {errors.streetAddress && (
-                    <Text style={styles.colorRed}>This is required.</Text>
-                  )}
-                </View>
-                <View style={styles.fieldsDisplay}>
-                  <View style={styles.w50}>
-                    <Controller
-                      control={control}
-                      rules={{
-                        required: true,
-                        maxLength: 14,
-                      }}
-                      render={({field: {onChange, onBlur, value}}) => (
-                        <>
-                          <Text>Password </Text>
-                          <TextInput
-                            secureTextEntry={true}
-                            textContentType="password"
-                            onBlur={onBlur}
-                            onChangeText={onChange}
-                            value={value}
-                          />
-                        </>
-                      )}
-                      name="password"
-                    />
-                    <View style={styles.divider} />
-                    {errors.state && (
-                      <Text style={styles.colorRed}>This is required.</Text>
-                    )}
-                  </View>
-                  <View style={styles.w50}>
-                    <Controller
-                      control={control}
-                      rules={{
-                        required: true,
-                        maxLength: 14,
-                      }}
-                      render={({field: {onChange, onBlur, value}}) => (
-                        <>
-                          <Text>Confirm Password</Text>
-                          <TextInput
-                            secureTextEntry={true}
-                            textContentType={'password'}
-                            onBlur={onBlur}
-                            onChangeText={onChange}
-                            value={value}
-                          />
-                        </>
-                      )}
-                      name="confirmPassword"
-                    />
-                    <View style={styles.divider} />
-                    {errors.zipCode && (
-                      <Text style={styles.colorRed}>This is required.</Text>
-                    )}
-                  </View>
-                </View>
-                <View style={{marginTop: 15}}>
-                  <Controller
-                    control={control}
-                    rules={{
-                      required: true,
-                      maxLength: 30,
-                    }}
-                    render={({field: {onChange, onBlur, value}}) => (
-                      <>
-                        <Text>Street Address </Text>
-                        <TextInput
-                          textContentType="streetAddressLine1"
-                          onBlur={onBlur}
-                          onChangeText={onChange}
-                          value={value}
-                        />
-                      </>
-                    )}
-                    name="streetAddress"
-                  />
-                  <View style={styles.divider} />
-                  {errors.streetAddress && (
-                    <Text style={styles.colorRed}>This is required.</Text>
-                  )}
-                </View>
-                <View style={styles.fieldsDisplay}>
-                  <View style={styles.w50}>
-                    <Controller
-                      control={control}
-                      rules={{
-                        required: true,
-                        maxLength: 14,
-                      }}
-                      render={({field: {onChange, onBlur, value}}) => (
-                        <>
-                          <Text>State </Text>
-                          <TextInput
-                            textContentType="addressState"
-                            onBlur={onBlur}
-                            onChangeText={onChange}
-                            value={value}
-                          />
-                        </>
-                      )}
-                      name="state"
-                    />
-                    <View style={styles.divider} />
-                    {errors.state && (
-                      <Text style={styles.colorRed}>This is required.</Text>
-                    )}
-                  </View>
-                  <View style={styles.w50}>
-                    <Controller
-                      control={control}
-                      rules={{
-                        required: true,
-                        maxLength: 14,
-                      }}
-                      render={({field: {onChange, onBlur, value}}) => (
-                        <>
-                          <Text>Zip Code</Text>
-                          <TextInput
-                            textContentType="postalCode"
-                            onBlur={onBlur}
-                            onChangeText={onChange}
-                            value={value}
-                          />
-                        </>
-                      )}
-                      name="zipCode"
-                    />
-                    <View style={styles.divider} />
-                    {errors.zipCode && (
-                      <Text style={styles.colorRed}>This is required.</Text>
-                    )}
-                  </View>
-                </View>
-              </KeyboardAwareScrollView>
-            </View> */}
+            <UserForm onSubmit={onSubmit} onInvalid={onInvalid} />
           </View>
-
-          {/* <View style={styles.btnWrapper}>
-              <TouchableOpacity
-                style={styles.button}
-                // signInWithPhoneNumber('+9232014844476'),
-                // onPress={() => signInWithPhoneNumber('+923054042027')}
-                onPress={handleSubmit(onSubmit, onInvalid)}
-                // onPress={() => {
-                //   handlenewUser;
-                // }}
-              >
-                <Text style={styles.text}>Confirm Investor Info</Text>
-              </TouchableOpacity>
-            </View> */}
         </View>
       </View>
     );

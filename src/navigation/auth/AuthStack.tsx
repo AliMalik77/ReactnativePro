@@ -39,7 +39,6 @@ const AuthStack = ({
           />
         )}
       </Stack.Screen>
-      {/* <Stack.Screen name="Splash" component={Splash}></Stack.Screen> */}
       <Stack.Screen
         name="Root"
         component={DrawerNavigation}
@@ -47,30 +46,6 @@ const AuthStack = ({
       />
       <Stack.Screen name="Tab" component={TabNavigation}></Stack.Screen>
       <Stack.Screen name="ProductView" component={ProductPage}></Stack.Screen>
-      {/* <Stack.Screen
-        name="Root"
-        component={DrawerNavigation}
-        options={{headerShown: false}}
-      /> */}
-      {/* <Stack.Screen name="LoginType">
-        {props => (
-          <LoginType
-            {...props}
-            authenticated={authenticated}
-            setAuthenticated={setAuthenticated}
-          />
-        )}
-      </Stack.Screen> */}
-      {/* <Stack.Screen name="Login">
-        {props => (
-          <Login
-            {...props}
-            authenticated={authenticated}
-            setAuthenticated={setAuthenticated}
-          />
-        )}
-      </Stack.Screen> */}
-      {/* <Stack.Screen name="SignupType" component={SignupType}></Stack.Screen> */}
       <Stack.Screen name="LoginForm">
         {props => (
           <LoginForm
@@ -82,19 +57,6 @@ const AuthStack = ({
           />
         )}
       </Stack.Screen>
-      {/* <Stack.Screen name="SignupPassword">
-        {props => (
-          <SignupPassword
-            {...props}
-            userData={userData}
-            setUserData={setUserData}
-          />
-        )}
-      </Stack.Screen> */}
-      {/* <Stack.Screen
-        name="ForgotPassword"
-        component={PasswordReset}></Stack.Screen>
-      <Stack.Screen name="InvestorInfo" component={InvestorInfo}></Stack.Screen> */}
     </Stack.Navigator>
   );
 };

@@ -26,20 +26,11 @@ const schema = yup
   .required();
 
 type UserFormProps = {
-  schema: any;
-  handleSubmit: any;
-  errors: any;
-  onSubmit: any;
-  onInvalid: any;
+  onSubmit: (val: {}) => void;
+  onInvalid: (val: {}) => void;
 };
 
-const UserForm = ({
-  //   schema,
-  //   handleSubmit,
-  //   errors,
-  onSubmit,
-  onInvalid,
-}: UserFormProps) => {
+const UserForm = ({onSubmit, onInvalid}: UserFormProps) => {
   const {
     control,
     handleSubmit,

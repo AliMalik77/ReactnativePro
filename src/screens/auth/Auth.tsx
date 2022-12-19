@@ -9,7 +9,8 @@ import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
-import auth, {firebase} from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
+import Config from 'react-native-config';
 
 type AuthProps = {
   authenticated: boolean;
@@ -21,27 +22,22 @@ type AuthProps = {
 };
 
 const Auth = ({navigation, authenticated, setAuthenticated}: AuthProps) => {
+  console.log('env data is available', Config.CLIENTID);
+
   useEffect(() => {
     SplashScreen.hide();
-    // const user = auth().currentUser;
-    // console.log('user getting authenticated', user);
 
     GoogleSignin.configure({
       scopes: ['email'],
-      webClientId:
-        '180123884938-0iv7p5s8me7e1l6gthmmosd40m4i8o2a.apps.googleusercontent.com',
+      webClientId: Config.CLIENTID,
     });
     auth().onAuthStateChanged(user => {
-      // firebase.auth().signOut();
-      console.log('user: ', user);
-
       // if (user) {
       //   setAuthenticated(true);
       // }
     });
   }, []);
 
-  console.log('hi testing');
   const handleClick = (data: any) => {
     if (data === 'login') {
       navigation.navigate('LoginForm');
@@ -53,18 +49,13 @@ const Auth = ({navigation, authenticated, setAuthenticated}: AuthProps) => {
 
   const googleSignin = async () => {
     try {
-      console.log('in try now');
-
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      console.log('user info', userInfo);
 
       if (userInfo.user) {
         setAuthenticated(true);
       }
     } catch (error: any) {
-      console.log('error getting user info', error);
-
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         console.log(
           'statusCodes.SIGN_IN_CANCELLED',
@@ -101,7 +92,6 @@ const Auth = ({navigation, authenticated, setAuthenticated}: AuthProps) => {
           bordercolor="#377BF5"
           border={0}
           onPress={() => googleSignin()}
-          // onPress={() => handleClick('signup')}
         />
         <Button
           text="Login"
