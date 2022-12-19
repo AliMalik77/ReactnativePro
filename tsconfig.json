@@ -6,12 +6,13 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "jsx": "react-native",
-    "lib": ["es2017"],
+    "target": "es5",
+    "lib": ["es2019", "DOM"],
     "types": ["react-native", "jest"],
     "moduleResolution": "node",
     "noEmit": true,
-    "strict": true,
-    "target": "esnext"
+    "strict": true
+    // "target": "esnext"
   },
   "files": ["declarations.d.ts"],
   "exclude": [
