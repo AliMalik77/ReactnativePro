@@ -47,7 +47,7 @@ const useFetchProducts = () => {
   };
   return useInfiniteQuery('fetch-products', getData, {
     getNextPageParam: lastPage => {
-      if (lastPage.data.length < 10) return undefined;
+      // if (lastPage.data.length < 10) return undefined;
       return lastPage.nextPage;
     },
   });
