@@ -22,8 +22,6 @@ type AuthProps = {
 };
 
 const Auth = ({navigation, authenticated, setAuthenticated}: AuthProps) => {
-  console.log('env data is available', Config.CLIENTID);
-
   useEffect(() => {
     SplashScreen.hide();
 
@@ -42,9 +40,6 @@ const Auth = ({navigation, authenticated, setAuthenticated}: AuthProps) => {
     if (data === 'login') {
       navigation.navigate('LoginForm');
     }
-    // if (data === 'signup') {
-    // navigation.navigate('SignupForm');
-    // }
   };
 
   const googleSignin = async () => {

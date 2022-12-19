@@ -17,19 +17,46 @@ const Product = ({
     // console.log('perform side effect after encountering error', data);
   };
 
-  const {isLoading, data, isError, error, isFetching, refetch} =
-    useFetchProducts({onSuccess, onError});
+  const {
+    isLoading,
+    data,
+    isError,
+    error,
+    isFetching,
+    refetch,
+    hasNextPage,
+    fetchNextPage,
+  } = useFetchProducts();
+
+  // var test = data?.pages;
+  // // var newData = data?.pages?.flatMap((x: any) => {
+  // //   return x.data;
+  // // });
+
+  // console.log('new dtaa test', newData);
+
+  if (isLoading) return <Text>Loading...</Text>;
+
+  if (isError) return <Text>An error occurred while fetching data</Text>;
+  // console.log('data getting', test);
+  const flattenData = data?.pages.flatMap((page: any) => page.data);
+  console.log('flattenData', flattenData);
 
   const handleProduct = (item: any) => {
     navigation.navigate('ProductView', item);
   };
 
+  const loadNext = () => {
+    if (hasNextPage) {
+      fetchNextPage();
+    }
+  };
   return (
     <View style={styles.mb80}>
-      <Text style={styles.productText}>{data?.data?.length} Products</Text>
+      <Text style={styles.productText}>{flattenData?.length} Products</Text>
 
       <FlatList
-        data={data?.data}
+        data={flattenData}
         keyExtractor={item => item.id}
         renderItem={({item}) => {
           return (
@@ -38,6 +65,7 @@ const Product = ({
             </TouchableOpacity>
           );
         }}
+        onEndReached={loadNext}
         showsVerticalScrollIndicator={false}
       />
     </View>
