@@ -18,17 +18,17 @@ const Card = ({data}: CardProps) => {
   return (
     <View style={styles.container1}>
       <View style={styles.container}>
-        <View style={{marginLeft: 30}}>
+        <View style={styles.ml30}>
           <Image
             style={styles.image}
             source={{
               uri: image,
             }}></Image>
         </View>
-        <View style={{marginLeft: 20, width: '70%'}}>
+        <View style={styles.infoContainer}>
           <Text style={styles.title}>{title}</Text>
           <View>
-            <Text style={{fontSize: 16, color: 'black'}} numberOfLines={4}>
+            <Text style={styles.description} numberOfLines={4}>
               {description}
             </Text>
           </View>
@@ -42,6 +42,9 @@ const Card = ({data}: CardProps) => {
 export default Card;
 
 const styles = StyleSheet.create({
+  infoContainer: {marginLeft: 20, width: '70%'},
+  ml30: {marginLeft: 30},
+  description: {fontSize: 16, color: 'black'},
   container1: {
     alignSelf: 'center',
     borderWidth: 2,

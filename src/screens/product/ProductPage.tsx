@@ -4,6 +4,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import StarRating from 'react-native-star-rating';
 import Back from '../../../assets/svgs/Backicon.svg';
 import FastImage from 'react-native-fast-image';
+import formatter from '../../helpers/Formatter';
 type ProductPageProps = {
   route: any;
   navigation: NavigationProp<{
@@ -17,6 +18,7 @@ const ProductPage = ({route, navigation}: ProductPageProps) => {
   const handleBack = () => {
     navigation.goBack();
   };
+
   return (
     <View>
       <TouchableOpacity
@@ -26,25 +28,19 @@ const ProductPage = ({route, navigation}: ProductPageProps) => {
       </TouchableOpacity>
 
       <FastImage
-        style={{
-          width: '90%',
-          height: '60%',
-          borderRadius: 10,
-          alignSelf: 'center',
-          marginTop: 20,
-        }}
+        style={styles.image}
         source={{
           uri: image,
         }}
         resizeMode={FastImage.resizeMode.center}></FastImage>
 
-      <View style={styles.image}>
-        <View style={{width: '100%'}}>
+      <View style={styles.imageDetails}>
+        <View style={styles.w100}>
           <Text>{category}</Text>
           <Text style={styles.title}>{title}</Text>
         </View>
-        <View style={{alignSelf: 'center'}}>
-          <Text style={styles.price}>${price}</Text>
+        <View style={styles.alignself}>
+          <Text style={styles.price}>{formatter.format(price)}</Text>
         </View>
       </View>
 
@@ -63,7 +59,18 @@ const ProductPage = ({route, navigation}: ProductPageProps) => {
 export default ProductPage;
 
 const styles = StyleSheet.create({
+  alignself: {alignSelf: 'center'},
+  w100: {
+    width: '100%',
+  },
   image: {
+    width: '90%',
+    height: '60%',
+    borderRadius: 10,
+    alignSelf: 'center',
+    marginTop: 20,
+  },
+  imageDetails: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-evenly',

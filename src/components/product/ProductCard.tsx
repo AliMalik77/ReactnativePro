@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
+import formatter from '../../helpers/Formatter';
 type ProductCardProps = {
   data: {
     id: string;
@@ -11,11 +12,12 @@ type ProductCardProps = {
 };
 
 const ProductCard = ({data}: ProductCardProps) => {
+  console.log('==================================', formatter.format(2500));
   const {image, title, description} = data;
   return (
     <View style={styles.container1}>
       <View style={styles.container}>
-        <View style={{marginLeft: 30}}>
+        <View style={styles.ml30}>
           <FastImage
             style={styles.image}
             source={{
@@ -26,7 +28,7 @@ const ProductCard = ({data}: ProductCardProps) => {
         </View>
         <View style={{marginLeft: 20}}>
           <Text style={styles.title}>{title}</Text>
-          <Text style={{fontSize: 16, color: 'black'}}>{description}</Text>
+          <Text style={styles.description}>{description}</Text>
           <Text style={styles.price}>$12000</Text>
         </View>
       </View>
@@ -46,12 +48,14 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 20,
   },
+  description: {fontSize: 16, color: 'black'},
   price: {
     fontSize: 20,
     fontWeight: '600',
     color: 'black',
     marginTop: 10,
   },
+  ml30: {marginLeft: 30},
   title: {fontSize: 20, fontWeight: '600', color: 'black'},
   image: {
     width: 60,

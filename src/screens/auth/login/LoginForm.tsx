@@ -1,21 +1,14 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Button as Buttonn,
-} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Button} from 'react-native';
 
 import Back from '../../../../assets/svgs/Backicon.svg';
-import Button from '../../../components/common/Button';
 import {NavigationProp} from '@react-navigation/native';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import {useForm} from 'react-hook-form';
 import auth from '@react-native-firebase/auth';
-import Verification from '../../../components/auth/auth/login/Verification';
-import UserForm from '../../../components/common/UserForm';
+import Verification from '../../../components/auth/login/Verification';
+import UserForm from '../../../components/auth/UserForm';
 
 const schema = yup
   .object({
@@ -31,8 +24,6 @@ const schema = yup
   .required();
 
 type LoginFormProps = {
-  userData: {email: string; password: string};
-  setUserData: (val: {email: string; password: string}) => void;
   navigation: NavigationProp<{
     SignupType: undefined;
     SignupPassword: undefined;
@@ -44,8 +35,6 @@ type LoginFormProps = {
 
 const LoginForm = ({
   navigation,
-  userData,
-  setUserData,
   authenticated,
   setAuthenticated,
 }: LoginFormProps) => {
@@ -54,9 +43,6 @@ const LoginForm = ({
   };
 
   const {
-    control,
-    handleSubmit,
-    getValues,
     formState: {errors},
   } = useForm({
     resolver: yupResolver(schema),
@@ -183,7 +169,6 @@ const styles = StyleSheet.create({
   },
   nameFields: {display: 'flex', flexDirection: 'row', marginTop: 50},
   containerVerification: {
-    // flex: 1,
     width: '100%',
     alignItems: 'center',
     backgroundColor: '#fff',
@@ -235,10 +220,6 @@ const styles = StyleSheet.create({
     width: '50%',
     marginBottom: 30,
   },
-  // container: {
-  //   flex: 1,
-  //   backgroundColor: 'white',
-  // },
   header: {
     flex: 1,
     margin: 10,

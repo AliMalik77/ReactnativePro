@@ -20,14 +20,7 @@ const CartComponent = ({data, handleProduct}: CartProps) => {
     // console.log('perform side effect after encountering error', data);
   };
 
-  const {
-    isLoading,
-    data: dataa,
-    isError,
-    error,
-    isFetching,
-    refetch,
-  } = useFetchProduct({
+  const {data: dataa} = useFetchProduct({
     onSuccess,
     onError,
     id: data.productId,

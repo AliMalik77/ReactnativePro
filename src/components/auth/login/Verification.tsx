@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
-import useAddUser from '../../../../hooks/useAddUser';
-import Button from '../../../common/Button';
+import useAddUser from '../../../hooks/useAddUser';
+import Button from '../../common/Button';
 
 type VerificationProps = {
   onPress: () => void;
@@ -25,9 +25,7 @@ const Verification = ({onPress, setCode, code, data}: VerificationProps) => {
 
   return (
     <View style={styles.containerVerification}>
-      <Text style={{fontSize: 20, fontWeight: '600', color: 'black'}}>
-        Enter Verification Code
-      </Text>
+      <Text style={styles.title}>Enter Verification Code</Text>
 
       <TextInput
         textAlign="center"
@@ -60,6 +58,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
   },
+  title: {fontSize: 20, fontWeight: '600', color: 'black'},
   btnWrapper: {width: '90%', alignSelf: 'center', bottom: 30},
   fieldContainer: {
     height: 50,

@@ -2,8 +2,8 @@ import React, {useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import Button from '../../components/common/Button';
 import {NavigationProp} from '@react-navigation/native';
-import Header from '../../components/auth/auth/Header';
-import Footer from '../../components/auth/auth/Footer';
+import Header from '../../components/auth/Header';
+import Footer from '../../components/auth/Footer';
 import SplashScreen from 'react-native-splash-screen';
 import {
   GoogleSignin,
@@ -17,7 +17,7 @@ type AuthProps = {
   setAuthenticated: (val: boolean) => void;
   navigation: NavigationProp<{
     LoginForm: undefined;
-    SignupForm: undefined;
+    SignupType: undefined;
   }>;
 };
 
@@ -29,16 +29,16 @@ const Auth = ({navigation, authenticated, setAuthenticated}: AuthProps) => {
       scopes: ['email'],
       webClientId: Config.CLIENTID,
     });
-    auth().onAuthStateChanged(user => {
-      // if (user) {
-      //   setAuthenticated(true);
-      // }
-    });
+    auth().onAuthStateChanged(user => {});
   }, []);
 
   const handleClick = (data: any) => {
     if (data === 'login') {
       navigation.navigate('LoginForm');
+    }
+    if (data === 'signup') {
+      console.log('i m called');
+      navigation.navigate('SignupType');
     }
   };
 
@@ -56,20 +56,16 @@ const Auth = ({navigation, authenticated, setAuthenticated}: AuthProps) => {
           'statusCodes.SIGN_IN_CANCELLED',
           statusCodes.SIGN_IN_CANCELLED,
         );
-
         // user cancelled the login flow
       } else if (error.code === statusCodes.IN_PROGRESS) {
         console.log('statusCodes.IN_PROGRESS', statusCodes.IN_PROGRESS);
-
         // operation (e.g. sign in) is in progress already
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         console.log('statusCodes.PLAY_SERVICES_NOT_AVAILABLE'),
           statusCodes.PLAY_SERVICES_NOT_AVAILABLE;
-
         // play services not available or outdated
       } else {
         console.log('Something else', error);
-
         // some other error happened
       }
     }
@@ -86,7 +82,8 @@ const Auth = ({navigation, authenticated, setAuthenticated}: AuthProps) => {
           textColor="white"
           bordercolor="#377BF5"
           border={0}
-          onPress={() => googleSignin()}
+          onPress={() => handleClick('signup')}
+          // onPress={() => googleSignin()}
         />
         <Button
           text="Login"

@@ -1,43 +1,16 @@
-import {useInfiniteQuery, useQuery} from 'react-query';
-import axios from 'axios';
+import {useInfiniteQuery} from 'react-query';
+import Config from 'react-native-config';
 
 type FetchProductProps = {
   onSuccess: (val: {}) => void;
   onError: (val: {}) => void;
 };
 
-const fetchProducts = (limit: number) => {
-  console.log('limit getting products', limit);
-
-  return axios.get(`https://fakestoreapi.com/products?limit=${limit}`);
-};
-
-// const useFetchProducts = ({onSuccess, onError}: FetchProductProps) => {
-//   return useQuery('fetch-products', fetchProducts, {
-//     onSuccess,
-//     onError,
-//     select: data => {
-//       return data;
-//     },
-//   });
-// };
-
-// const useFetchProducts = ({onSuccess, onError}: FetchProductProps) => {
-//   return useInfiniteQuery(
-//     'fetch-products', fetchProducts, {
-//       getNextPageParam: ()
-//     onSuccess,
-//     onError,
-//     select: data => {
-//       return data;
-//     },
-//   });
-// };
-
 const useFetchProducts = () => {
+  console.log('config data', Config.BASE_URL);
   const getData = async ({pageParam = 10}) => {
     const res = await (
-      await fetch(`https://fakestoreapi.com/products?limit=${pageParam}`)
+      await fetch(`${Config.BASE_URL}/products?limit=${pageParam}`)
     ).json();
 
     return {

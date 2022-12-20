@@ -28,19 +28,10 @@ const Product = ({
     fetchNextPage,
   } = useFetchProducts();
 
-  // var test = data?.pages;
-  // // var newData = data?.pages?.flatMap((x: any) => {
-  // //   return x.data;
-  // // });
-
-  // console.log('new dtaa test', newData);
-
   if (isLoading) return <Text>Loading...</Text>;
 
   if (isError) return <Text>An error occurred while fetching data</Text>;
-  // console.log('data getting', test);
   const flattenData = data?.pages.flatMap((page: any) => page.data);
-  console.log('flattenData', flattenData);
 
   const handleProduct = (item: any) => {
     navigation.navigate('ProductView', item);

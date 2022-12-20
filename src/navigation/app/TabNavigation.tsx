@@ -4,7 +4,6 @@ import Product from '../../screens/product/Product';
 import Cart from '../../screens/cart/Cart';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {createStackNavigator} from '@react-navigation/stack';
 
 const Tab = createBottomTabNavigator();
 
@@ -47,7 +46,6 @@ const TabNavigation = () => {
           },
         }}
       />
-      {/* <Stack.Screen name="ProductView" component={ProductPage}></Stack.Screen> */}
     </Tab.Navigator>
   );
 };

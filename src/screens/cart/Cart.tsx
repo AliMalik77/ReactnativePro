@@ -16,10 +16,13 @@ const Cart = ({
   const onError = (data: any) => {
     // console.log('perform side effect after encountering error', data);
   };
-  const {isLoading, data, isError, error, isFetching, refetch} = useFetchCart({
-    onSuccess,
-    onError,
-  });
+  // const {isLoading, data, isError, error, isFetching, refetch} = useFetchCart({
+  //   onSuccess,
+  //   onError,
+  // });
+
+  const test = useFetchCart({onSuccess, onError});
+  console.log('test data loaded', test);
 
   const handleProduct = (item: any) => {
     navigation.navigate('ProductView', item);
@@ -27,24 +30,17 @@ const Cart = ({
 
   return (
     <View>
-      <Text
-        style={{
-          color: 'black',
-          marginTop: 10,
-          fontSize: 20,
-          fontWeight: '500',
-          padding: 10,
-        }}>
-        {data?.data?.products?.length} products in Cart
+      <Text style={styles.title}>
+        {/* {data?.data?.products?.length} products in Cart */}
       </Text>
-      <FlatList
+      {/* <FlatList
         data={data?.data?.products}
         keyExtractor={item => item.id}
         renderItem={({item}) => {
           return <CartComponent data={item} handleProduct={handleProduct} />;
         }}
         showsVerticalScrollIndicator={false}
-      />
+      /> */}
     </View>
   );
 };
@@ -52,34 +48,11 @@ const Cart = ({
 export default Cart;
 
 const styles = StyleSheet.create({
-  mr10: {marginRight: 10},
-  option: {
+  title: {
+    color: 'black',
     marginTop: 10,
-    marginRight: 20,
-    alignItems: 'flex-end',
-  },
-
-  infoIcon: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  text: {
-    fontWeight: '800',
-    fontSize: 19,
-  },
-  topicWrapper: {
-    width: '90%',
-    alignSelf: 'center',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  desc: {
-    width: '90%',
-    alignSelf: 'center',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    fontSize: 20,
+    fontWeight: '500',
+    padding: 10,
   },
 });

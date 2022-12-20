@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {NavigationProp} from '@react-navigation/native';
-import UserForm from '../../components/common/UserForm';
+import UserForm from '../../components/auth/UserForm';
 
 import EditUser from '../../components/settings/EditUser';
 
@@ -27,11 +27,9 @@ const Settings = ({navigation}: SettingsProps) => {
         <EditUser data={editData} setEditData={setEditData} />
       ) : (
         <View style={styles.container}>
-          <View style={{marginTop: 10, padding: 20}}>
-            <View style={{alignSelf: 'center'}}>
-              <Text style={{color: 'black', fontSize: 24, fontWeight: '600'}}>
-                Edit User Info
-              </Text>
+          <View style={styles.detail}>
+            <View style={styles.alignself}>
+              <Text style={styles.title}>Edit User Info</Text>
             </View>
 
             <View>
@@ -47,5 +45,8 @@ const Settings = ({navigation}: SettingsProps) => {
 export default Settings;
 
 const styles = StyleSheet.create({
+  title: {color: 'black', fontSize: 24, fontWeight: '600'},
+  alignself: {alignSelf: 'center'},
+  detail: {marginTop: 10, padding: 20},
   container: {flex: 1, alignItems: 'center', backgroundColor: '#fff'},
 });

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Alert} from 'react-native';
 import useEditUser from '../../hooks/useEditUser';
 
@@ -8,14 +8,8 @@ type EditUserProps = {
 };
 
 const EditUser = ({data, setEditData}: EditUserProps) => {
-  const {
-    mutate: editUser,
-    isError,
-    isIdle,
-    isLoading,
-    isSuccess,
-  } = useEditUser();
-  const [user, setUser] = useState(false);
+  const {mutate: editUser, isSuccess} = useEditUser();
+
   useEffect(() => {
     editUser({
       post: data,
