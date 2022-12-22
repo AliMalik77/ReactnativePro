@@ -1,9 +1,9 @@
 import React from 'react';
-import {Text, View} from 'react-native';
-import Headphone from '../../../../assets/svgs/Headphone.svg';
-import Logo from '../../../../assets/svgs/Logo.svg';
-import Cycle from '../../../../assets/svgs/Cycle.svg';
-import Background from '../../../../assets/svgs/Background.svg';
+import {View} from 'react-native';
+import Headphone from '../../../assets/svgs/Headphone.svg';
+import Miventure from '../../../assets/svgs/Miventure.svg';
+import Cycle from '../../../assets/svgs/Cycle.svg';
+import Background from '../../../assets/svgs/Background.svg';
 import {ScaledSheet} from 'react-native-size-matters';
 const Header = () => {
   return (
@@ -14,13 +14,7 @@ const Header = () => {
       <View style={styles.mainContent}>
         <Headphone style={styles.headphone} />
         <View style={styles.logo}>
-          <Logo style={styles.image} />
-        </View>
-
-        <View style={styles.headerTextCont}>
-          <Text style={styles.headerText}>
-            Easily invest in your favourite startups
-          </Text>
+          <Miventure style={styles.image} />
         </View>
       </View>
       <View style={(styles.center, {width: '100%'})}>
@@ -34,11 +28,7 @@ export default Header;
 
 const styles = ScaledSheet.create({
   background: {position: 'absolute', top: 0, left: 0, right: 0, bottom: 0},
-  headerText: {
-    color: '#377BF5',
-    fontSize: 20,
-    textAlign: 'center',
-  },
+
   logo: {
     marginBottom: 20,
     marginTop: 20,

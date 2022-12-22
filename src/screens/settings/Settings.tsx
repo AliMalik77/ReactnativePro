@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {Alert, StyleSheet, Text, View} from 'react-native';
 import {NavigationProp} from '@react-navigation/native';
-import UserForm from '../../components/common/UserForm';
-
-import EditUser from '../../components/settings/EditUser';
+import UserForm from '../../components/auth/UserForm';
+import Colors from '../../themes/Colors';
+import useEditUser from '../../hooks/useEditUser';
 
 type SettingsProps = {
   navigation: NavigationProp<{
@@ -12,10 +12,15 @@ type SettingsProps = {
 };
 
 const Settings = ({navigation}: SettingsProps) => {
-  const [editData, setEditData] = useState(null);
+  const {mutate: editUser, isSuccess} = useEditUser();
 
   const onSubmit = (data: any) => {
-    setEditData(data);
+    editUser({
+      post: data,
+    });
+    if (isSuccess === true) {
+      Alert.alert('User updated successfully');
+    }
   };
 
   const onInvalid = (errors: any) => {
@@ -23,23 +28,17 @@ const Settings = ({navigation}: SettingsProps) => {
   };
   return (
     <>
-      {editData ? (
-        <EditUser data={editData} setEditData={setEditData} />
-      ) : (
-        <View style={styles.container}>
-          <View style={{marginTop: 10, padding: 20}}>
-            <View style={{alignSelf: 'center'}}>
-              <Text style={{color: 'black', fontSize: 24, fontWeight: '600'}}>
-                Edit User Info
-              </Text>
-            </View>
+      <View style={styles.container}>
+        <View style={styles.detail}>
+          <View style={styles.alignself}>
+            <Text style={styles.title}>Edit User Info</Text>
+          </View>
 
-            <View>
-              <UserForm onSubmit={onSubmit} onInvalid={onInvalid} />
-            </View>
+          <View>
+            <UserForm onSubmit={onSubmit} onInvalid={onInvalid} />
           </View>
         </View>
-      )}
+      </View>
     </>
   );
 };
@@ -47,5 +46,8 @@ const Settings = ({navigation}: SettingsProps) => {
 export default Settings;
 
 const styles = StyleSheet.create({
-  container: {flex: 1, alignItems: 'center', backgroundColor: '#fff'},
+  title: {color: Colors.Black, fontSize: 24, fontWeight: '600'},
+  alignself: {alignSelf: 'center'},
+  detail: {marginTop: 10, padding: 20},
+  container: {flex: 1, alignItems: 'center', backgroundColor: Colors.White},
 });

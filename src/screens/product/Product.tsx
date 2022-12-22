@@ -1,46 +1,25 @@
 import {NavigationProp} from '@react-navigation/native';
 import React from 'react';
-import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Card from '../../components/common/Card';
 import useFetchProducts from '../../hooks/useFetchProducts';
+import Colors from '../../themes/Colors';
 
 const Product = ({
   navigation,
 }: {
   navigation: NavigationProp<{ProductView: undefined; Auth: undefined}>;
 }) => {
-  const onSuccess = (data: any) => {
-    // console.log('perform side effect after data fetching', data.data);
-  };
+  const {data, hasNextPage, fetchNextPage} = useFetchProducts();
 
-  const onError = (data: any) => {
-    // console.log('perform side effect after encountering error', data);
-  };
-
-  const {
-    isLoading,
-    data,
-    isError,
-    error,
-    isFetching,
-    refetch,
-    hasNextPage,
-    fetchNextPage,
-  } = useFetchProducts();
-
-  // var test = data?.pages;
-  // // var newData = data?.pages?.flatMap((x: any) => {
-  // //   return x.data;
-  // // });
-
-  // console.log('new dtaa test', newData);
-
-  if (isLoading) return <Text>Loading...</Text>;
-
-  if (isError) return <Text>An error occurred while fetching data</Text>;
-  // console.log('data getting', test);
   const flattenData = data?.pages.flatMap((page: any) => page.data);
-  console.log('flattenData', flattenData);
 
   const handleProduct = (item: any) => {
     navigation.navigate('ProductView', item);
@@ -67,6 +46,11 @@ const Product = ({
         }}
         onEndReached={loadNext}
         showsVerticalScrollIndicator={false}
+        ListEmptyComponent={
+          <View>
+            <ActivityIndicator size="large" color={Colors.Blue} />
+          </View>
+        }
       />
     </View>
   );
@@ -109,7 +93,7 @@ const styles = StyleSheet.create({
     marginBottom: 80,
   },
   productText: {
-    color: 'black',
+    color: Colors.Black,
     marginTop: 10,
     fontSize: 20,
     fontWeight: '500',

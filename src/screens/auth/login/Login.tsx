@@ -1,38 +1,15 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Button as Buttonn,
-} from 'react-native';
-
+import {View, Text, TouchableOpacity, TextInput} from 'react-native';
 import Back from '../../../../assets/svgs/Backicon.svg';
-import Button from '../../../components/common/Button';
 import {NavigationProp} from '@react-navigation/native';
-import {yupResolver} from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import {useForm} from 'react-hook-form';
 import auth from '@react-native-firebase/auth';
-import Verification from '../../../components/auth/auth/login/Verification';
-import UserForm from '../../../components/common/UserForm';
-
-const schema = yup
-  .object({
-    firstName: yup.string().required(),
-    lastName: yup.string().required(),
-    streetAddress: yup.string().required(),
-    emailAddress: yup.string().required(),
-    password: yup.string().required(),
-    confirmPassword: yup.string().required(),
-    state: yup.string().required(),
-    zipCode: yup.number().required(),
-  })
-  .required();
+import Verification from '../../../components/auth/login/Verification';
+import {ScaledSheet} from 'react-native-size-matters';
+import Colors from '../../../themes/Colors';
+import FormController from '../../../components/auth/FormController';
 
 type LoginFormProps = {
-  userData: {email: string; password: string};
-  setUserData: (val: {email: string; password: string}) => void;
   navigation: NavigationProp<{
     SignupType: undefined;
     SignupPassword: undefined;
@@ -42,13 +19,7 @@ type LoginFormProps = {
   setAuthenticated: (val: boolean) => void;
 };
 
-const LoginForm = ({
-  navigation,
-  userData,
-  setUserData,
-  authenticated,
-  setAuthenticated,
-}: LoginFormProps) => {
+const LoginForm = ({navigation, setAuthenticated}: LoginFormProps) => {
   const handleBack = () => {
     navigation.goBack();
   };
@@ -56,14 +27,11 @@ const LoginForm = ({
   const {
     control,
     handleSubmit,
-    getValues,
     formState: {errors},
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+  } = useForm();
 
   const [confirm, setConfirm] = useState<any | null>(null);
-
+  const [phoneNumber, setPhoneNumber] = useState<any | null>(null);
   const [code, setCode] = useState('');
 
   const hero = {
@@ -87,12 +55,6 @@ const LoginForm = ({
     phone: '03201484476',
   };
 
-  const onSubmit = (data: any) => {
-    signInWithPhoneNumber('+923201484476');
-  };
-
-  const onInvalid = (errors: any) => console.error(errors);
-
   const confirmCode = async () => {
     try {
       await confirm.confirm(code);
@@ -103,19 +65,15 @@ const LoginForm = ({
     }
   };
 
+  const onSubmit = (data: any) => {
+    signInWithPhoneNumber(data?.phoneNumber);
+  };
+
   const signInWithPhoneNumber = async (phoneNumber: string) => {
-    const ConfirmationResult: any = await auth().signInWithPhoneNumber(
-      '+923054042027',
+    const confirmationResult: {} = await auth().signInWithPhoneNumber(
+      phoneNumber,
     );
-    setConfirm(ConfirmationResult);
-  };
-
-  const onSuccess = (data: any) => {
-    console.log('perform side effect after data fetching', data.data);
-  };
-
-  const onError = (data: any) => {
-    console.log('perform side effect after encountering error', data);
+    setConfirm(confirmationResult);
   };
 
   if (!confirm) {
@@ -128,38 +86,84 @@ const LoginForm = ({
             </TouchableOpacity>
           </View>
           <View style={styles.descHeader}>
-            <Text style={styles.description}>Add User Information</Text>
+            <Text style={styles.description}>Enter Your Number</Text>
           </View>
 
-          <View style={{padding: 10}}>
-            <UserForm onSubmit={onSubmit} onInvalid={onInvalid} />
+          <View style={[styles.p10, styles.ml20]}>
+            <FormController
+              control={control}
+              fieldName="Phone Number"
+              rules={{
+                required: true,
+                maxLength: 20,
+              }}
+              secureTextEntry={false}
+              name="phoneNumber"
+              type="telephoneNumber"
+            />
+            {errors.phoneNumber && (
+              <Text style={styles.colorRed}>This is required.</Text>
+            )}
+          </View>
+          <View style={styles.btnWrapper}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={handleSubmit(onSubmit)}>
+              <Text style={styles.text}>Submit</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
     );
   }
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: '#fff',
-        justifyContent: 'center',
-      }}>
-      <Verification
-        onPress={confirmCode}
-        setCode={setCode}
-        code={code}
-        data={hero}
-      />
+    <View style={styles.verificationContainer}>
+      <View style={styles.backIconContainer}>
+        <TouchableOpacity onPress={handleBack}>
+          <Back height={25} width={25} />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.verification}>
+        <Verification
+          onPress={confirmCode}
+          setCode={setCode}
+          code={code}
+          data={hero}
+        />
+      </View>
     </View>
   );
 };
 
 export default LoginForm;
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
+  verificationContainer: {flex: 1, backgroundColor: Colors.White},
+  backIconContainer: {padding: 20, flex: 1},
+  verification: {
+    flex: 2,
+    backgroundColor: Colors.White,
+    justifyContent: 'flex-start',
+  },
+  p10: {
+    padding: 10,
+  },
+  ml20: {
+    marginLeft: 20,
+  },
+  fieldContainer: {
+    height: 50,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#EAEAEA',
+    marginTop: 20,
+    textAlign: 'center',
+  },
   input: {
-    height: 40,
+    height: '40@vs',
     width: '90%',
     margin: 12,
     borderWidth: 1,
@@ -168,32 +172,24 @@ const styles = StyleSheet.create({
   btnWrapper: {width: '90%', alignSelf: 'center', bottom: 30},
   divider: {
     borderWidth: 1,
-    borderColor: '#EAEAEA',
+    borderColor: Colors.BrightGray,
     width: '90%',
   },
-  alert: {
-    color: '#EA4335',
-    textAlign: 'center',
-    fontWeight: '400',
-    fontSize: 14,
-    marginTop: 24,
-  },
   colorRed: {
-    color: 'red',
+    color: Colors.IntenseRed,
   },
   nameFields: {display: 'flex', flexDirection: 'row', marginTop: 50},
   containerVerification: {
-    // flex: 1,
     width: '100%',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: Colors.White,
   },
   w50: {width: '50%'},
   container: {
     flex: 1,
     width: '100%',
     alignSelf: 'center',
-    backgroundColor: 'white',
+    backgroundColor: Colors.White,
   },
   fieldsDisplay: {display: 'flex', flexDirection: 'row', marginTop: 15},
   button: {
@@ -203,26 +199,16 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 32,
     borderRadius: 30,
-    backgroundColor: '#377BF5',
+    backgroundColor: Colors.Blue,
     width: '100%',
   },
   text: {
     fontSize: 20,
-    color: 'white',
+    color: Colors.White,
   },
   buttonWrapper: {marginTop: 20, width: '90%', alignItems: 'center'},
   fieldWrapper: {width: '100%', alignItems: 'center'},
-  fieldContainer: {
-    height: 50,
-    width: '90%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: '#EAEAEA',
-    marginTop: 20,
-    textAlign: 'center',
-  },
+
   icon: {
     padding: 20,
     marginTop: 20,
@@ -235,10 +221,6 @@ const styles = StyleSheet.create({
     width: '50%',
     marginBottom: 30,
   },
-  // container: {
-  //   flex: 1,
-  //   backgroundColor: 'white',
-  // },
   header: {
     flex: 1,
     margin: 10,
@@ -249,7 +231,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   description: {
-    color: '#000000',
+    color: Colors.Black,
     fontSize: 26,
     fontWeight: '800',
     textAlign: 'center',

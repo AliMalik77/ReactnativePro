@@ -1,16 +1,18 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import Circle from '../../../../assets/svgs/Circle.svg';
+import Circle from '../../../assets/svgs/Circle.svg';
+import Colors from '../../themes/Colors';
 
 const Footer = () => {
   return (
     <>
       <View style={styles.descriptionText}>
         <Text>
-          By viewing the <Text style={styles.highlights}>Offerings here</Text> ,
-          I accept Miventure’s{' '}
-          <Text style={styles.highlights}>Terms of Service</Text> and
-          <Text style={styles.highlights}>Privacy Policy.</Text>
+          By viewing the{' '}
+          <Text style={{color: Colors.Blue}}>Offerings here</Text> , I accept
+          Miventure’s <Text style={{color: Colors.Blue}}>Terms of Service</Text>{' '}
+          and
+          <Text style={{color: Colors.Blue}}>Privacy Policy.</Text>
         </Text>
       </View>
       <View style={styles.ball}>
@@ -33,8 +35,5 @@ const styles = StyleSheet.create({
   ball: {
     position: 'absolute',
     right: 0,
-  },
-  highlights: {
-    color: '#377BF5',
   },
 });

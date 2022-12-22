@@ -1,28 +1,30 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import Auth from '../../screens/auth/Auth';
-import LoginForm from '../../screens/auth/login/LoginForm';
+import LoginForm from '../../screens/auth/login/Login';
 import DrawerNavigation from '../app/DrawNavigation';
 import TabNavigation from '../app/TabNavigation';
 import ProductPage from '../../screens/product/ProductPage';
+import SignupType from '../../screens/auth/signup/SignupType';
+import SignupForm from '../../screens/auth/signup/SignupForm';
 
 const Stack = createStackNavigator();
 
 type AuthProps = {
+  authenticated: boolean;
+  setAuthenticated: (val: boolean) => void;
   userData: {
     email: string;
     password: string;
   };
   setUserData: (val: {email: string; password: string}) => void;
-  authenticated: boolean;
-  setAuthenticated: (val: boolean) => void;
 };
 
 const AuthStack = ({
-  userData,
-  setUserData,
   authenticated,
   setAuthenticated,
+  userData,
+  setUserData,
 }: AuthProps) => {
   return (
     <Stack.Navigator
@@ -39,19 +41,30 @@ const AuthStack = ({
           />
         )}
       </Stack.Screen>
-      <Stack.Screen
-        name="Root"
-        component={DrawerNavigation}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen name="Tab" component={TabNavigation}></Stack.Screen>
-      <Stack.Screen name="ProductView" component={ProductPage}></Stack.Screen>
+      <Stack.Screen name="SignupForm">
+        {props => (
+          <SignupForm
+            {...props}
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
+            userData={userData}
+            setUserData={setUserData}
+          />
+        )}
+      </Stack.Screen>
       <Stack.Screen name="LoginForm">
         {props => (
           <LoginForm
             {...props}
-            userData={userData}
-            setUserData={setUserData}
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
+          />
+        )}
+      </Stack.Screen>
+      <Stack.Screen name="SignupType">
+        {props => (
+          <SignupType
+            {...props}
             authenticated={authenticated}
             setAuthenticated={setAuthenticated}
           />

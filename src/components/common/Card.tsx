@@ -1,5 +1,7 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, Text, View} from 'react-native';
+import {ScaledSheet} from 'react-native-size-matters';
+import Colors from '../../themes/Colors';
 
 type CardProps = {
   data: {
@@ -18,17 +20,18 @@ const Card = ({data}: CardProps) => {
   return (
     <View style={styles.container1}>
       <View style={styles.container}>
-        <View style={{marginLeft: 30}}>
+        <View style={styles.ml30}>
           <Image
             style={styles.image}
             source={{
               uri: image,
-            }}></Image>
+            }}
+            resizeMode="center"></Image>
         </View>
-        <View style={{marginLeft: 20, width: '70%'}}>
+        <View style={styles.infoContainer}>
           <Text style={styles.title}>{title}</Text>
           <View>
-            <Text style={{fontSize: 16, color: 'black'}} numberOfLines={4}>
+            <Text style={styles.description} numberOfLines={4}>
               {description}
             </Text>
           </View>
@@ -41,26 +44,29 @@ const Card = ({data}: CardProps) => {
 
 export default Card;
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
+  infoContainer: {marginLeft: 20, width: '70%'},
+  ml30: {marginLeft: 30},
+  description: {fontSize: 16, color: Colors.Black},
   container1: {
     alignSelf: 'center',
     borderWidth: 2,
     borderRadius: 12,
-    borderColor: '#EAEAEA',
-    backgroundColor: '#fff',
+    borderColor: Colors.BrightGray,
+    backgroundColor: Colors.White,
     width: '100%',
     marginBottom: 20,
   },
   price: {
     fontSize: 20,
     fontWeight: '600',
-    color: 'black',
+    color: Colors.Black,
     marginTop: 10,
   },
-  title: {fontSize: 20, fontWeight: '600', color: 'black'},
+  title: {fontSize: 20, fontWeight: '600', color: Colors.Black},
   image: {
-    width: 60,
-    height: 100,
+    width: '50@s',
+    height: '100@vs',
     padding: 10,
   },
   container: {

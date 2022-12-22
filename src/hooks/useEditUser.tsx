@@ -1,8 +1,9 @@
 import {useMutation} from 'react-query';
+import Config from 'react-native-config';
 
 const useEditUser = () => {
   return useMutation((post: any) =>
-    fetch(`https://fakestoreapi.com/users/7`, {
+    fetch(`${Config.BASE_URL}/users/7`, {
       body: JSON.stringify(post),
       method: 'PUT',
       credentials: 'include',
