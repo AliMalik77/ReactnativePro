@@ -5,12 +5,10 @@ import {NavigationProp} from '@react-navigation/native';
 import Header from '../../components/auth/Header';
 import Footer from '../../components/auth/Footer';
 import SplashScreen from 'react-native-splash-screen';
-import {
-  GoogleSignin,
-  statusCodes,
-} from '@react-native-google-signin/google-signin';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import Config from 'react-native-config';
+import Colors from '../../themes/Colors';
 
 type AuthProps = {
   authenticated: boolean;
@@ -21,7 +19,7 @@ type AuthProps = {
   }>;
 };
 
-const Auth = ({navigation, authenticated, setAuthenticated}: AuthProps) => {
+const Auth = ({navigation, setAuthenticated}: AuthProps) => {
   useEffect(() => {
     SplashScreen.hide();
 
@@ -37,59 +35,27 @@ const Auth = ({navigation, authenticated, setAuthenticated}: AuthProps) => {
       navigation.navigate('LoginForm');
     }
     if (data === 'signup') {
-      console.log('i m called');
       navigation.navigate('SignupType');
-    }
-  };
-
-  const googleSignin = async () => {
-    try {
-      await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
-
-      if (userInfo.user) {
-        setAuthenticated(true);
-      }
-    } catch (error: any) {
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        console.log(
-          'statusCodes.SIGN_IN_CANCELLED',
-          statusCodes.SIGN_IN_CANCELLED,
-        );
-        // user cancelled the login flow
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        console.log('statusCodes.IN_PROGRESS', statusCodes.IN_PROGRESS);
-        // operation (e.g. sign in) is in progress already
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        console.log('statusCodes.PLAY_SERVICES_NOT_AVAILABLE'),
-          statusCodes.PLAY_SERVICES_NOT_AVAILABLE;
-        // play services not available or outdated
-      } else {
-        console.log('Something else', error);
-        // some other error happened
-      }
     }
   };
 
   return (
     <View style={styles.container}>
       <Header />
-
       <View style={styles.footer}>
         <Button
           text="Signup"
-          color="#377BF5"
-          textColor="white"
-          bordercolor="#377BF5"
+          color={Colors.Blue}
+          textColor={Colors.White}
+          bordercolor={Colors.Blue}
           border={0}
           onPress={() => handleClick('signup')}
-          // onPress={() => googleSignin()}
         />
         <Button
           text="Login"
-          color="#fff"
-          textColor="#377BF5"
-          bordercolor="#377BF5"
+          color={Colors.White}
+          textColor={Colors.Blue}
+          bordercolor={Colors.Blue}
           border={2}
           onPress={() => handleClick('login')}
         />

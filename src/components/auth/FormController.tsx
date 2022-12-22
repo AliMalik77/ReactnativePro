@@ -1,6 +1,7 @@
 import React from 'react';
 import {Controller} from 'react-hook-form';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
+import Colors from '../../themes/Colors';
 
 type FormControllerProps = {
   control: any;
@@ -51,7 +52,7 @@ export default FormController;
 const styles = StyleSheet.create({
   divider: {
     borderWidth: 1,
-    borderColor: '#EAEAEA',
+    borderColor: Colors.BrightGray,
     width: '90%',
   },
 });

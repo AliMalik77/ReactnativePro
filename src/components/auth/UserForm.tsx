@@ -3,6 +3,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useForm} from 'react-hook-form';
 import FormController from './FormController';
+import Colors from '../../themes/Colors';
 
 type UserFormProps = {
   onSubmit: (val: {}) => void;
@@ -180,20 +181,20 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 32,
     borderRadius: 30,
-    backgroundColor: '#377BF5',
+    backgroundColor: Colors.Blue,
     width: '100%',
   },
   text: {
     fontSize: 20,
-    color: 'white',
+    color: Colors.White,
   },
   divider: {
     borderWidth: 1,
-    borderColor: '#EAEAEA',
+    borderColor: Colors.IntenseRed,
     width: '90%',
   },
   colorRed: {
-    color: 'red',
+    color: Colors.IntenseRed,
   },
   w50: {width: '50%'},
   fieldsDisplay: {display: 'flex', flexDirection: 'row', marginTop: 15},

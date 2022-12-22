@@ -28,11 +28,7 @@ export default Header;
 
 const styles = ScaledSheet.create({
   background: {position: 'absolute', top: 0, left: 0, right: 0, bottom: 0},
-  headerText: {
-    color: '#377BF5',
-    fontSize: 20,
-    textAlign: 'center',
-  },
+
   logo: {
     marginBottom: 20,
     marginTop: 20,

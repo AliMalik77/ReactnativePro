@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import useAddUser from '../../../hooks/useAddUser';
+import Colors from '../../../themes/Colors';
 import Button from '../../common/Button';
 
 type VerificationProps = {
@@ -10,14 +11,8 @@ type VerificationProps = {
   data: {};
 };
 
-const Verification = ({onPress, setCode, code, data}: VerificationProps) => {
-  const {
-    mutate: sendPost,
-    isError,
-    isIdle,
-    isLoading,
-    isSuccess,
-  } = useAddUser();
+const Verification = ({onPress, setCode, data}: VerificationProps) => {
+  const {mutate: sendPost} = useAddUser();
 
   useEffect(() => {
     sendPost({post: data});
@@ -39,9 +34,9 @@ const Verification = ({onPress, setCode, code, data}: VerificationProps) => {
       <View style={styles.buttonWrapper}>
         <Button
           text="Login"
-          color="#377BF5"
-          textColor="white"
-          bordercolor="#377BF5"
+          color={Colors.Blue}
+          textColor={Colors.White}
+          bordercolor={Colors.Blue}
           border={0}
           onPress={onPress}
         />
@@ -56,9 +51,9 @@ const styles = StyleSheet.create({
   containerVerification: {
     width: '100%',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: Colors.White,
   },
-  title: {fontSize: 20, fontWeight: '600', color: 'black'},
+  title: {fontSize: 20, fontWeight: '600', color: Colors.Black},
   btnWrapper: {width: '90%', alignSelf: 'center', bottom: 30},
   fieldContainer: {
     height: 50,
@@ -67,7 +62,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: '#EAEAEA',
+    borderColor: Colors.BrightGray,
     marginTop: 20,
     textAlign: 'center',
   },

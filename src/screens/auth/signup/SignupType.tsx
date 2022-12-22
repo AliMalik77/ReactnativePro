@@ -1,57 +1,106 @@
-import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import React, {useEffect} from 'react';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import Button from '../../../components/common/Button';
 import {NavigationProp} from '@react-navigation/native';
-// import Header from '../../../components/auth/signup/signupType/Header';
+import Back from '../../../../assets/svgs/Backicon.svg';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
+import Config from 'react-native-config';
+import auth from '@react-native-firebase/auth';
+import Colors from '../../../themes/Colors';
 
-const SignupType = ({
-  navigation,
-}: {
+type SignupTypeProps = {
+  authenticated: boolean;
+  setAuthenticated: (val: boolean) => void;
   navigation: NavigationProp<{
-    // Login: undefined;
-    // Auth: undefined;
-    // Email: undefined;
+    LoginForm: undefined;
+    SignupForm: undefined;
   }>;
-}) => {
-  const handleClick = () => {
-    // navigation.navigate('Login');
-  };
+};
+
+const SignupType = ({navigation, setAuthenticated}: SignupTypeProps) => {
+  useEffect(() => {
+    GoogleSignin.configure({
+      scopes: ['email'],
+      webClientId: Config.CLIENTID,
+    });
+    auth().onAuthStateChanged(user => {});
+  }, []);
 
   const handleBack = () => {
     navigation.goBack();
   };
 
+  const handleGoogleSignup = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      if (userInfo.user) {
+        setAuthenticated(true);
+      }
+    } catch (error: any) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        console.log(
+          'statusCodes.SIGN_IN_CANCELLED',
+          statusCodes.SIGN_IN_CANCELLED,
+        );
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        console.log('statusCodes.IN_PROGRESS', statusCodes.IN_PROGRESS);
+        // operation (e.g. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        console.log('statusCodes.PLAY_SERVICES_NOT_AVAILABLE'),
+          statusCodes.PLAY_SERVICES_NOT_AVAILABLE;
+        // play services not available or outdated
+      } else {
+        console.log('Something else', error);
+        // some other error happened
+      }
+    }
+  };
+
   const handleEmailSignup = () => {
-    // navigation.navigate('Email');
+    navigation.navigate('SignupForm');
+  };
+
+  const handleLogin = () => {
+    navigation.navigate('LoginForm');
   };
 
   return (
     <View style={styles.container}>
-      {/* <Header onPress={handleBack} /> */}
+      <View style={styles.p20}>
+        <TouchableOpacity onPress={handleBack}>
+          <Back height={25} width={25} />
+        </TouchableOpacity>
+      </View>
       <View style={styles.footer}>
         <Button
           text="Sign up with Google"
-          color="#EA4335"
-          textColor="white"
-          bordercolor="#377BF5"
+          color={Colors.Cinnabar}
+          textColor={Colors.White}
+          bordercolor={Colors.Blue}
           border={0}
+          onPress={handleGoogleSignup}
         />
 
         <Button
           text="Signup with email"
-          color="#377BF5"
-          textColor="white"
-          bordercolor="#377BF5"
+          color={Colors.Blue}
+          textColor={Colors.White}
+          bordercolor={Colors.Blue}
           border={0}
-          onPress={() => handleEmailSignup()}
+          onPress={handleEmailSignup}
         />
         <Button
           text="Login"
-          color="#fff"
-          textColor="#377BF5"
-          bordercolor="#377BF5"
+          color={Colors.White}
+          textColor={Colors.Blue}
+          bordercolor={Colors.Blue}
           border={2}
-          onPress={() => handleClick()}
+          onPress={handleLogin}
         />
       </View>
     </View>
@@ -64,7 +113,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-
+  p20: {
+    padding: 20,
+  },
   footer: {
     flex: 1,
     alignSelf: 'center',
